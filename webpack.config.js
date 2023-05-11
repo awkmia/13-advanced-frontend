@@ -1,4 +1,6 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack'); //to access built-in plugins
 
 module.exports = {
     mode: 'development', //'production'
@@ -8,5 +10,9 @@ module.exports = {
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, 'build'),
         clean: true,
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new webpack.ProgressPlugin(),
+    ],
 }
