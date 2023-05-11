@@ -1,3 +1,3 @@
 import {sameFn} from "./test";
 
-sameFn()
+sameFn(123)
