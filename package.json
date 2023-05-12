@@ -21,6 +21,8 @@
   "homepage": "https://github.com/awkmia/13-advanced-frontend#readme",
   "devDependencies": {
     "@types/node": "^17.0.21",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.7.2",
     "html-webpack-plugin": "^5.5.0",
