@@ -13,7 +13,7 @@ export function buildWebpackConfig(option : BuildOptions): webpack.Configuration
         // entry: {ANY_NAME: path.resolve(__dirname, 'src', 'index.ts')},
         entry: paths.entry,
         module: {
-            rules: buildLoaders(),
+            rules: buildLoaders(option),
         },
         resolve: buildResolvers(),
         output: {
