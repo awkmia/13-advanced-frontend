@@ -11,3 +11,5 @@ render(
     </BrowserRouter>,
     document.getElementById("root")
 )
+
+//https://feature-sliced.design/
