@@ -7,6 +7,8 @@ const MainPage = () => {
     return (
         <div>
             {t('Главная страница')}
+            <hr/>
+            {t('i18n support')}
         </div>
     );
 };

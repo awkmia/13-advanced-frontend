@@ -2,5 +2,6 @@
   "Тестовый пример": "Test example",
   "Перевод": "Translate",
   "Главная страница": "Main page",
-  "Язык": "English"
+  "Язык": "English",
+  "i18n support": "Installed via Marketplace Webstorm, for use we also write: const {t} = useTranslation(); t('key'); and Alt + Enter, then select the 2nd item"
 }
