@@ -4,9 +4,9 @@ import {BuildOptions} from "./types/config";
 
 export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
 
-    const svgLoader = {
+    const svgLoader: webpack.RuleSetRule = {
         test: /\.svg$/,
-        use: ['@svgr/webpack']
+        use: ['@svgr/webpack'],
     }
 
     // Если не используем тайпскрипт - нужен babel-loader
