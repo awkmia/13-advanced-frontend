@@ -37,4 +37,16 @@ describe('classNames', () => {
             ['class1', 'class2'],
         )).toBe(expected);
     });
+
+    test('with all mods false and other arguments absent', () => {
+        const expected = '';
+        expect(classNames('', { hovered: false, scrollable: false }, []))
+            .toBe(expected);
+    });
+
+    test('with all mods undefined and other arguments absent', () => {
+        const expected = '';
+        expect(classNames('', { hovered: undefined, scrollable: undefined }, ['']))
+            .toBe(expected);
+    });
 });
