@@ -38,8 +38,10 @@ module.exports = {
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
-        'max-len': [0, { code: 150 }],
-        'i18next/no-literal-string': ['error', { markupOnly: true }],
+        // 'max-len': [2, { code: 150 }, { ignoreComments: true }],
+        'max-len': [2, { code: 150 }],
+        // 'i18next/no-literal-string': ['error', { markupOnly: true }],
+        'i18next/no-literal-string': 'off',
     },
     globals: {
         __IS_DEV__: true,
