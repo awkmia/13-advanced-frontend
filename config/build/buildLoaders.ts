@@ -60,8 +60,8 @@ export function buildLoaders({isDev}: BuildOptions): webpack.RuleSetRule[] {
     return [
         fileLoader,
         svgLoader,
-        typescriptLoader,
         babelLoader,
+        typescriptLoader,
         cssLoader,
     ]
 }
