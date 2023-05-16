@@ -5,7 +5,7 @@ import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
-export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPluginInstance[] {
+export function buildPlugins({ paths, isDev, analyze }: BuildOptions): webpack.WebpackPluginInstance[] {
     const plugins = [
         new HtmlWebpackPlugin({
             template: paths.html,
@@ -19,15 +19,16 @@ export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPlu
             __IS_DEV__: JSON.stringify(isDev),
         }),
         // new webpack.HotModuleReplacementPlugin(),
-        new BundleAnalyzerPlugin({
-            openAnalyzer: false,
-        }),
-        // process.env.analyze && new BundleAnalyzerPlugin(),
 
-        // new BundleAnalyzerPlugin(
-        //     { analyzerMode: process.env.STATS as 'server' || 'disabled' },
-        // ),
     ];
+
+    if (analyze) {
+        plugins.push(new BundleAnalyzerPlugin({
+            analyzerMode: analyze ? 'server' : 'disabled',
+            // опция нужна чтобы при true - открывалась в браузере, при false - только в консоли
+            openAnalyzer: true,
+        }));
+    }
 
     if (isDev) {
         // Для отключения webpack_stack_tracer при появлении ошибки нужно передать в HMR react refresh plugin { overlay: false }
