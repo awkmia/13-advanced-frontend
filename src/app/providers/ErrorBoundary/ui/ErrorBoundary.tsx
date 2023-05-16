@@ -1,16 +1,15 @@
-import React, { ErrorInfo, ReactNode } from 'react';
-import { TFunction, withTranslation, WithTranslation } from 'react-i18next';
+import React, { ErrorInfo, ReactNode, Suspense } from 'react';
 
-interface ErrorBoundaryProps extends WithTranslation {
+interface ErrorBoundaryProps {
     children: ReactNode;
-    t: TFunction;
 }
 
 interface ErrorBoundaryState {
     hasError: boolean;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary
+    extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
     constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = { hasError: false };
@@ -21,25 +20,24 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         return { hasError: true };
     }
 
-    componentDidCatch(error: Error, info: ErrorInfo) {
+    componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         // You can also log the error to an error reporting service
         // logErrorToMyService(error, info);
-        console.log(error, info);
+        console.log(error, errorInfo);
     }
 
     render() {
         const { hasError } = this.state;
         const { children } = this.props;
-        const { t } = this.props;
 
         if (hasError) {
             // You can render any custom fallback UI
-            return <h1>{t('Something went wrong.')}</h1>;
+            // eslint-disable-next-line i18next/no-literal-string,react/no-unescaped-entities
+            return <h1>'Something went wrong.'</h1>;
         }
 
         return children;
     }
 }
 
-export default withTranslation()(ErrorBoundary);
-// export default ErrorBoundary;
+export default ErrorBoundary;

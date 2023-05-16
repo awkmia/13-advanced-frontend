@@ -20,7 +20,8 @@ export function buildPlugins({ paths, isDev }: BuildOptions): webpack.WebpackPlu
     ];
 
     if (isDev) {
-        plugins.push(new ReactRefreshPlugin());
+        // Для отключения webpack_stack_tracer при появлении ошибки нужно передать в HMR react refresh plugin { overlay: false }
+        plugins.push(new ReactRefreshPlugin({ overlay: true }));
         plugins.push(new webpack.HotModuleReplacementPlugin());
     }
 
