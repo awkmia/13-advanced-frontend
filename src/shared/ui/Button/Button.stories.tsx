@@ -1,7 +1,8 @@
 import React from 'react';
-import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Button } from './Button';
+import { Button, ThemeButton } from './Button';
+import 'app/styles/index.scss';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -17,11 +18,17 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-    primary: true,
-    label: 'Button',
+    children: 'Text',
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-    label: 'Button',
+export const Clear = Template.bind({});
+Clear.args = {
+    children: 'Text',
+    theme: ThemeButton.CLEAR,
+};
+
+export const Outline = Template.bind({});
+Outline.args = {
+    children: 'Text',
+    theme: ThemeButton.OUTLINE,
 };
