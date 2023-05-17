@@ -41,7 +41,8 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'max-len': [2, { code: 100, ignoreComments: true, ignorePattern: '^.*function.*' }],
         // 'i18next/no-literal-string': ['error', { markupOnly: true }],
-        'i18next/no-literal-string': ['error', { markupOnly: true }],
+        'i18next/no-literal-string': [
+            'error', { markupOnly: true, ignoreAttribute: ['data-testid'] }],
         // 'i18next/no-literal-string': 'off',
         'no-console': 'off',
     },
