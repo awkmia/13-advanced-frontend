@@ -11,4 +11,4 @@ export const parameters = {
     },
 };
 
-addDecorator(StyleDecorator);
+// addDecorator(StyleDecorator);
