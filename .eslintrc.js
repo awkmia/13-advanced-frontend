@@ -42,7 +42,7 @@ module.exports = {
         'max-len': [2, { code: 100, ignoreComments: true, ignorePattern: '^.*function.*' }],
         // 'i18next/no-literal-string': ['error', { markupOnly: true }],
         'i18next/no-literal-string': [
-            'error', { markupOnly: true, ignoreAttribute: ['data-testid'] }],
+            'error', { markupOnly: true, ignoreAttribute: ['data-testid', 'to'] }],
         // 'i18next/no-literal-string': 'off',
         'no-console': 'off',
     },
