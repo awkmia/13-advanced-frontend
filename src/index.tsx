@@ -17,4 +17,3 @@ render(
 );
 
 // https://feature-sliced.design/
-// v4

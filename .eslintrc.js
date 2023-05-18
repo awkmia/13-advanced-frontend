@@ -45,7 +45,8 @@ module.exports = {
             'error', { markupOnly: true, ignoreAttribute: ['data-testid', 'to'] }],
         // 'i18next/no-literal-string': 'off',
         'no-console': 'off',
-        'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
+        // 'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
+        'linebreak-style': 0,
     },
     globals: {
         __IS_DEV__: true,
