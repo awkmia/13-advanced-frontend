@@ -27,12 +27,12 @@ export function Sidebar({ className }: SidebarProps) {
                 [className],
             )}
         >
-            {/* <Button */}
-            {/*    data-testid="sidebar-toggle" */}
-            {/*    onClick={onToggle} */}
-            {/* > */}
-            {/*    {t('Переключатель')} */}
-            {/* </Button> */}
+            <Button
+                data-testid="sidebar-toggle"
+                onClick={onToggle}
+            >
+                {t('Переключатель')}
+            </Button>
             <div className={cls.switchers}>
                 <ThemeSwitcher />
                 <LangSwitcher className={cls.lang} />
