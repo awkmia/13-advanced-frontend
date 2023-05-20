@@ -4,17 +4,21 @@ import cls from './Modal.module.scss';
 
 interface ModalProps {
     className?: string,
-    children?: ReactNode
+    children?: ReactNode,
+    isOpen?: boolean,
+    onClose?: () => void,
 }
 
 export const Modal = (props: ModalProps) => {
     const {
         children,
         className,
+        isOpen,
+        onClose,
     } = props;
 
-    const mods = {
-
+    const mods: Record<string, boolean> = {
+        [cls.opened]: isOpen,
     };
 
     return (
