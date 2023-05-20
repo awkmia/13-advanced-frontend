@@ -1,5 +1,5 @@
+import React, { ReactNode } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ReactNode } from 'react';
 import cls from './Modal.module.scss';
 
 interface ModalProps {
@@ -21,10 +21,20 @@ export const Modal = (props: ModalProps) => {
         [cls.opened]: isOpen,
     };
 
+    const closeHandler = () => {
+        if (onClose) {
+            onClose();
+        }
+    };
+
+    const onContentClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
+
     return (
         <div className={classNames(cls.Modal, mods, [className])}>
-            <div className={cls.overlay}>
-                <div className={cls.content}>
+            <div className={cls.overlay} onClick={closeHandler}>
+                <div className={cls.content} onClick={onContentClick}>
                     {children}
                 </div>
             </div>
