@@ -1,5 +1,5 @@
 import React, {
-    ReactNode, useState, useRef, useEffect,
+    ReactNode, useState, useRef, useEffect, useCallback,
 } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Modal.module.scss';
@@ -24,7 +24,7 @@ export const Modal = (props: ModalProps) => {
     const [isClosing, setIsClosing] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-    const closeHandler = () => {
+    const closeHandler = useCallback(() => {
         if (onClose) {
             setIsClosing(true);
             timerRef.current = setTimeout(() => {
@@ -32,17 +32,17 @@ export const Modal = (props: ModalProps) => {
                 setIsClosing(false);
             }, ANIMATION_DELAY);
         }
-    };
+    }, [onClose]);
 
     const onContentClick = (e: React.MouseEvent) => {
         e.stopPropagation();
     };
 
-    const onKeyDown = (e : KeyboardEvent) => {
+    const onKeyDown = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             closeHandler();
         }
-    };
+    }, [closeHandler]);
 
     useEffect(() => {
         if (isOpen) {
@@ -53,7 +53,7 @@ export const Modal = (props: ModalProps) => {
             clearTimeout(timerRef.current);
             window.removeEventListener('keydown', onKeyDown);
         };
-    }, [isOpen]);
+    }, [isOpen, onKeyDown]);
 
     const mods: Record<string, boolean> = {
         [cls.opened]: isOpen,
