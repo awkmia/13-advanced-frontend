@@ -38,11 +38,20 @@ export const Modal = (props: ModalProps) => {
         e.stopPropagation();
     };
 
+    const onKeyDown = (e : KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            closeHandler();
+        }
+    };
+
     useEffect(() => {
-        console.log(': ');
+        if (isOpen) {
+            window.addEventListener('keydown', onKeyDown);
+        }
 
         return () => {
             clearTimeout(timerRef.current);
+            window.removeEventListener('keydown', onKeyDown);
         };
     }, [isOpen]);
 
