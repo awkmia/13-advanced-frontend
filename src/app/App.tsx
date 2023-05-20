@@ -6,20 +6,21 @@ import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
 import './styles/index.scss';
 import { Modal } from 'shared/ui/Modal/Modal';
-import { useTranslation } from 'react-i18next';
 
 function App() {
     const { theme } = useTheme();
 
     const [isOpen, setIsOpen] = useState(false);
-    const { t } = useTranslation();
 
     return (
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback="">
                 <Navbar />
+                {/* eslint-disable-next-line i18next/no-literal-string */}
                 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                    {t('i18n support')}
+                    {/* eslint-disable-next-line i18next/no-literal-string */}
+                    {/* eslint-disable-next-line max-len */}
+                    i18n supporti18n supporti18n supporti18n supporti18n supporti18n supporti18n supporti18n
                 </Modal>
                 {/* eslint-disable-next-line i18next/no-literal-string */}
                 <button type="button" onClick={() => setIsOpen(true)}>Toggle</button>
