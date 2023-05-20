@@ -1,4 +1,6 @@
-import React, { ReactNode, useState, useRef } from 'react';
+import React, {
+    ReactNode, useState, useRef, useEffect,
+} from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Modal.module.scss';
 
@@ -22,11 +24,6 @@ export const Modal = (props: ModalProps) => {
     const [isClosing, setIsClosing] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-    const mods: Record<string, boolean> = {
-        [cls.opened]: isOpen,
-        [cls.isClosing]: isClosing,
-    };
-
     const closeHandler = () => {
         if (onClose) {
             setIsClosing(true);
@@ -39,6 +36,19 @@ export const Modal = (props: ModalProps) => {
 
     const onContentClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+    };
+
+    useEffect(() => {
+        console.log(': ');
+
+        return () => {
+            clearTimeout(timerRef.current);
+        };
+    }, [isOpen]);
+
+    const mods: Record<string, boolean> = {
+        [cls.opened]: isOpen,
+        [cls.isClosing]: isClosing,
     };
 
     return (
