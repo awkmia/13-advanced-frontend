@@ -21,6 +21,7 @@ module.exports = {
         'react',
         '@typescript-eslint',
         'i18next',
+        'react-hooks',
     ],
     ignorePatterns: ['src/shared/lib/classNames/bem.ts', '**[iI]gnored*'],
     rules: {
@@ -49,6 +50,8 @@ module.exports = {
         // 'linebreak-style': 0,
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
+        'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+        'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     },
     globals: {
         __IS_DEV__: true,
