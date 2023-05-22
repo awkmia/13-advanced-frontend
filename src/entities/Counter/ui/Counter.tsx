@@ -8,11 +8,11 @@ export const Counter = () => {
     const countValue = useSelector(getCounterValue);
 
     const increment = () => {
-        dispatch(counterActions.increment);
+        dispatch(counterActions.increment());
     };
 
     const decrement = () => {
-        dispatch(counterActions.decrement);
+        dispatch(counterActions.decrement());
     };
 
     return (
