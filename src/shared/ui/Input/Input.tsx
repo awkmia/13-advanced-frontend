@@ -12,7 +12,7 @@ interface InputProps extends HTMLInputProps{
     onChange?: (value: string) => void,
     autofocus?: boolean,
 }
-
+// For commit
 export const Input = memo((props: InputProps) => {
     const {
         className,
