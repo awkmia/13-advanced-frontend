@@ -26,8 +26,10 @@ export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
         dispatch({ type: '@INIT loginForm reducer' });
 
         return () => {
-            store.reducerManager.remove(name);
-            dispatch({ type: `@DESTROY ${name} reducer` });
+            if (removeAfterUnmount) {
+                store.reducerManager.remove(name);
+                dispatch({ type: `@DESTROY ${name} reducer` });
+            }
         };
         // eslint-disable-next-line
     }, []);
