@@ -7,8 +7,8 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/Input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ReduxStoreWithManager, StateSchemaKey } from 'app/providers/StoreProvider/config/StateSchema';
-import { DynamicModuleLoader } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { ReduxStoreWithManager } from 'app/providers/StoreProvider/config/StateSchema';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
 import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
@@ -20,6 +20,10 @@ import cls from './LoginForm.module.scss';
 export interface LoginFormProps {
     className?: string,
 }
+
+const initialReducers: ReducersList = {
+    loginForm: loginReducer,
+};
 
 const LoginForm = memo((props: LoginFormProps) => {
     const {
@@ -33,8 +37,6 @@ const LoginForm = memo((props: LoginFormProps) => {
     const password = useSelector(getLoginPassword);
     const error = useSelector(getLoginError);
     const isLoading = useSelector(getLoginIsLoading);
-
-    const loginFormKey: StateSchemaKey = 'loginForm';
 
     useEffect(() => {
         store.reducerManager.add('loginForm', loginReducer);
@@ -64,7 +66,7 @@ const LoginForm = memo((props: LoginFormProps) => {
     };
 
     return (
-        <DynamicModuleLoader removeAfterUnmount name={loginFormKey} reducers={loginReducer}>
+        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <div className={classNames(cls.LoginForm, mods, [className])}>
                 <Text title={t('Форма авторизации')} />
                 {error && <Text text={t('Вы ввели неверный логин или пароль')} theme={TextTheme.ERROR} />}
