@@ -13,7 +13,6 @@ interface SidebarProps {
 
 export const Sidebar = memo(({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState(false);
-    const [test, setTest] = useState(0);
 
     const onToggle = () => {
         setCollapsed((prev) => !prev);
@@ -47,8 +46,6 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
                 {collapsed ? '>' : '<'}
             </Button>
             <div className={cls.items}>
-                {/* eslint-disable-next-line i18next/no-literal-string */}
-                <button type="button" onClick={() => setTest(test + 1)}>ReRender</button>
                 {itemsList}
             </div>
             <div className={cls.switchers}>
