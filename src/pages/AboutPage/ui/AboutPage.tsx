@@ -15,3 +15,6 @@ function AboutPage() {
 }
 
 export default AboutPage;
+// Дефолтный экспорт нужен для того чтобы работала конструкция
+// в асинхронном чанке AboutPage.async.tsx:
+// setTimeout(() => resolve(import('./AboutPage')), 300);

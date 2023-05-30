@@ -16,3 +16,6 @@ function MainPage() {
 }
 
 export default MainPage;
+// Дефолтный экспорт нужен для того чтобы работала конструкция
+// в асинхронном чанке MainPage.async.tsx:
+// setTimeout(() => resolve(import('./MainPage')), 300);
