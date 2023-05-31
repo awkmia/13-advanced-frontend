@@ -3,9 +3,9 @@ type ExtraClasses = string[]
 
 function bem(block: string, modifiers: Modifiers, extraClasses?: ExtraClasses): string
 // eslint-disable-next-line no-redeclare
-function bem(block: string, element: string, modifiers: Modifiers, extraClasses?: ExtraClasses): string
+function bem(block: string, element: string | null, modifiers: Modifiers, extraClasses?: ExtraClasses): string
 // eslint-disable-next-line no-redeclare
-function bem(block: string, element: string | Modifiers, modifiers?: Modifiers | ExtraClasses, extraClasses?: ExtraClasses): string {
+function bem(block: string, element: string | Modifiers  | null, modifiers?: Modifiers | ExtraClasses | undefined | null, extraClasses?: ExtraClasses): string {
     let baseClass = block;
     let classes = '';
     if (typeof element === 'string') {
