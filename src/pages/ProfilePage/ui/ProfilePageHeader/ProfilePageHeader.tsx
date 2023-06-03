@@ -28,6 +28,10 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
         dispatch(profileActions.cancelEdit());
     }, [dispatch]);
 
+    const onSave = useCallback(() => {
+        dispatch(profileActions.cancelEdit());
+    }, [dispatch]);
+
     const mods: Mods = {
 
     };
@@ -57,6 +61,7 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
                         <Button
                             className={cls.saveBtn}
                             theme={ButtonTheme.OUTLINE}
+                            onClick={onSave}
                         >
                             {t('Сохранить')}
                         </Button>
