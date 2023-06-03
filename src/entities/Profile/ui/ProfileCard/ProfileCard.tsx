@@ -1,8 +1,9 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { Text, TextAlign, TextTheme } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
 import { Loader } from 'shared/ui/Loader/Loader';
+import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { Profile } from '../../model/types/Profile';
 import cls from './ProfileCard.module.scss';
 
@@ -57,12 +58,16 @@ export const ProfileCard = (props: ProfileCardProps) => {
         );
     }
 
+    const mods: Mods = {
+        [cls.editing]: !readonly,
+    };
+
     return (
-        <div className={classNames(cls.ProfileCard, {}, [className])}>
+        <div className={classNames(cls.ProfileCard, mods, [className])}>
             <div className={cls.data}>
                 {data?.avatar && (
                     <div className={cls.avatarWrapper}>
-                        <img width={150} src={data.avatar} />
+                        <Avatar src={data?.avatar} />
                     </div>
                 )}
                 <Input
