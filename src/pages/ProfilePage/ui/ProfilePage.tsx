@@ -12,6 +12,7 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { ProfilePageHeader } from '../ui/ProfilePageHeader/ProfilePageHeader';
 
 const reducers: ReducersList = {
     profile: profileReducer,
@@ -36,6 +37,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
             <div className={classNames('', {}, [className])}>
+                <ProfilePageHeader />
                 <ProfileCard
                     data={data}
                     isLoading={isLoading}
