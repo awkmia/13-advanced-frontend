@@ -15,6 +15,8 @@ interface ProfileCardProps {
     onChangeLastname?: (value?: string) => void,
     onChangeCity?: (value?: string) => void,
     onChangeAge?: (value?: string) => void,
+    onChangeUsername?: (value?: string) => void;
+    onChangeAvatar?: (value?: string) => void;
     readonly?: boolean;
 }
 
@@ -28,6 +30,8 @@ export const ProfileCard = (props: ProfileCardProps) => {
         onChangeLastname,
         onChangeAge,
         onChangeCity,
+        onChangeAvatar,
+        onChangeUsername,
         readonly,
     } = props;
     const { t } = useTranslation('profile');
@@ -56,6 +60,11 @@ export const ProfileCard = (props: ProfileCardProps) => {
     return (
         <div className={classNames(cls.ProfileCard, {}, [className])}>
             <div className={cls.data}>
+                {data?.avatar && (
+                    <div className={cls.avatarWrapper}>
+                        <img width={150} src={data.avatar} />
+                    </div>
+                )}
                 <Input
                     value={data?.first}
                     placeholder={t('Ваше имя')}
@@ -82,6 +91,20 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     placeholder={t('Ваш город')}
                     className={cls.input}
                     onChange={onChangeCity}
+                    readonly={readonly}
+                />
+                <Input
+                    value={data?.username}
+                    placeholder={t('Введите имя пользователя')}
+                    className={cls.input}
+                    onChange={onChangeUsername}
+                    readonly={readonly}
+                />
+                <Input
+                    value={data?.avatar}
+                    placeholder={t('Введите ссылку на аватар')}
+                    className={cls.input}
+                    onChange={onChangeAvatar}
                     readonly={readonly}
                 />
             </div>
