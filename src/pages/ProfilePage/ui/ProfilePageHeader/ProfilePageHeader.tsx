@@ -3,7 +3,9 @@ import { Text } from 'shared/ui/Text/Text';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { getProfileReadonly, profileActions, updateProfileData } from 'entities/Profile';
+import {
+    fetchProfileData, getProfileReadonly, profileActions, updateProfileData,
+} from 'entities/Profile';
 import { useCallback } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import cls from './ProfilePageHeader.module.scss';
@@ -32,6 +34,10 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
         dispatch(updateProfileData());
     }, [dispatch]);
 
+    const onRefresh = useCallback(() => {
+        dispatch(fetchProfileData());
+    }, [dispatch]);
+
     const mods: Mods = {
 
     };
@@ -57,6 +63,13 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
                             onClick={onCancelEdit}
                         >
                             {t('Отменить')}
+                        </Button>
+                        <Button
+                            className={cls.saveBtn}
+                            theme={ButtonTheme.OUTLINE}
+                            onClick={onRefresh}
+                        >
+                            {t('Обновить')}
                         </Button>
                         <Button
                             className={cls.saveBtn}

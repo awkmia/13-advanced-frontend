@@ -4,6 +4,10 @@ import { Text, TextAlign, TextTheme } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
 import { Loader } from 'shared/ui/Loader/Loader';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
+import { CountrySelect } from 'entities/Country';
+import { CurrencySelect } from 'entities/Currency';
+import { Currency } from 'entities/Currency/model/types/currency';
+import { Country } from 'entities/Country/model/types/country';
 import { Profile } from '../../model/types/Profile';
 import cls from './ProfileCard.module.scss';
 
@@ -18,6 +22,8 @@ interface ProfileCardProps {
     onChangeAge?: (value?: string) => void,
     onChangeUsername?: (value?: string) => void;
     onChangeAvatar?: (value?: string) => void;
+    onChangeCurrency?: (currency: Currency) => void;
+    onChangeCountry?: (country: Country) => void;
     readonly?: boolean;
 }
 
@@ -33,6 +39,8 @@ export const ProfileCard = (props: ProfileCardProps) => {
         onChangeCity,
         onChangeAvatar,
         onChangeUsername,
+        onChangeCurrency,
+        onChangeCountry,
         readonly,
     } = props;
     const { t } = useTranslation('profile');
@@ -112,7 +120,18 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     onChange={onChangeAvatar}
                     readonly={readonly}
                 />
-
+                <CountrySelect
+                    value={data?.country}
+                    onChange={onChangeCountry}
+                    className={cls.input}
+                    readonly={readonly}
+                />
+                <CurrencySelect
+                    value={data?.currency}
+                    onChange={onChangeCurrency}
+                    className={cls.input}
+                    readonly={readonly}
+                />
             </div>
         </div>
     );
