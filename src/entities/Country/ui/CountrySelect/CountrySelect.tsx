@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { Select } from 'shared/ui/Select/Select';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { Country } from '../../model/types/country';
 
 interface CountrySelectProps {
@@ -11,13 +11,18 @@ interface CountrySelectProps {
     readonly?: boolean;
 }
 
-const options = [
-    { value: Country.Russia, content: Country.Russia },
-    { value: Country.Belarus, content: Country.Belarus },
-    { value: Country.Kazakhstan, content: Country.Kazakhstan },
-    { value: Country.Ukraine, content: Country.Ukraine },
-    { value: Country.Armenia, content: Country.Armenia },
-];
+// const options = [
+//     { value: Country.Russia, content: Country.Russia },
+//     { value: Country.Belarus, content: Country.Belarus },
+//     { value: Country.Kazakhstan, content: Country.Kazakhstan },
+//     { value: Country.Ukraine, content: Country.Ukraine },
+//     { value: Country.Armenia, content: Country.Armenia },
+// ];
+
+const options = Object.entries(Country).map((country) => ({
+    value: country[0],
+    content: country[1],
+}));
 
 export const CountrySelect = memo((props: CountrySelectProps) => {
     const {
