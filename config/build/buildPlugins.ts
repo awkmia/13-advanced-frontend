@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { BuildOptions } from './types/config';
 
@@ -36,7 +36,7 @@ export function buildPlugins({
 
     if (isDev) {
         // Для отключения webpack_stack_tracer при появлении ошибки нужно передать в HMR react refresh plugin { overlay: false }
-        plugins.push(new ReactRefreshPlugin({ overlay: true }));
+        plugins.push(new ReactRefreshWebpackPlugin({ overlay: true }));
         plugins.push(new webpack.HotModuleReplacementPlugin());
     }
 
