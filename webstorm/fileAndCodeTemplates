@@ -1,0 +1,334 @@
+Create Entities React Component
+---------------------------------
+${NAME}/ui/${NAME}/${NAME}
+tsx
+import { useTranslation } from 'react-i18next';
+import { ReactNode } from 'react';
+import { classNames } from 'shared/lib/classNames/classNames';
+import cls from "./${NAME}.module.scss"
+
+interface ${NAME}Props {
+    className?: string,
+    children?: ReactNode
+}
+
+export const ${NAME} = (props: ${NAME}Props) => {
+    const {
+        children,
+        className,
+    } = props;
+
+    const { t } = useTranslation();
+
+    const mods: Record<string, boolean> = {
+
+    };
+
+    return (
+        <div className={classNames(cls.${NAME.toLowerCase()}, mods, [className])}>
+            {children}
+        </div>
+    );
+};
+
+---------------------------------
+${NAME}/index
+ts
+export { ${NAME} } from './ui/${NAME}/${NAME}';
+export {
+    get${NAME},
+} from './model/selectors/get${NAME}/get${NAME}';
+
+export {
+    ${NAME.toLowerCase()}Reducer,
+    ${NAME.toLowerCase()}Actions,
+} from './model/slice/${NAME.toLowerCase()}Slice';
+export {
+    ${NAME}Schema,
+    ${NAME}Type,
+} from './model/types/${NAME.toLowerCase()}';
+---------------------------------
+${NAME}/model/types/${NAME.toLowerCase()}
+ts
+export interface ${NAME}Type {
+    value1?: string;
+    value2?: boolean;
+    value3?: number,
+}
+
+export interface ${NAME}Schema {
+    data?: ${NAME}Type;
+    isLoading: boolean;
+    error?: string;
+}
+---------------------------------
+${NAME}/model/slice/${NAME.toLowerCase()}Slice
+test.ts
+import {
+    ${NAME.toLowerCase()}Actions, ${NAME.toLowerCase()}Reducer, ${NAME}Schema,
+} from 'entities/${NAME}';
+
+const data = {
+};
+
+describe('${NAME.toLowerCase()}Slice.test', () => {
+    test('test set data', () => {
+        const state: DeepPartial<${NAME}Schema> = { data: data };
+        expect(${NAME.toLowerCase()}Reducer(
+            state as ${NAME}Schema,
+            ${NAME.toLowerCase()}Actions.setData(data),
+        )).toEqual(data);
+    });
+});
+---------------------------------
+${NAME}/model/slice/${NAME.toLowerCase()}Slice
+ts
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ${NAME}Type, ${NAME}Schema } from '../types/${NAME.toLowerCase()}';
+import { fetch${NAME} } from '../services/fetch${NAME}/fetch${NAME}';
+
+const initialState: ${NAME}Schema = {
+    isLoading: false,
+    error: undefined,
+    data: undefined,
+};
+
+export const ${NAME.toLowerCase()}Slice = createSlice({
+    name: '${NAME.toLowerCase()}',
+    initialState,
+    reducers: {
+        setData: (state, action: PayloadAction<${NAME}Type>) => {
+            state.data = action.payload;
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetch${NAME}.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetch${NAME}.fulfilled, (
+                state,
+                action: PayloadAction<${NAME}Type>,
+            ) => {
+                state.isLoading = false;
+                state.data = action.payload;
+            })
+            .addCase(fetch${NAME}.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
+    },
+});
+
+// Action creators are generated for each case reducer function
+export const { actions: ${NAME.toLowerCase()}Actions } = ${NAME.toLowerCase()}Slice;
+export const { reducer: ${NAME.toLowerCase()}Reducer } = ${NAME.toLowerCase()}Slice;
+---------------------------------
+${NAME}/model/services/fetch${NAME}/fetch${NAME}
+test.ts
+import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
+import { fetch${NAME} } from './fetch${NAME}';
+
+const data = {
+};
+
+describe('fetch${NAME}.test', () => {
+    test('success', async () => {
+        const thunk = new TestAsyncThunk(fetch${NAME});
+        thunk.api.get.mockReturnValue(Promise.resolve({ data }));
+
+        const result = await thunk.callThunk();
+
+        expect(thunk.api.get).toHaveBeenCalled();
+        expect(result.meta.requestStatus).toBe('fulfilled');
+        expect(result.payload).toEqual(data);
+    });
+
+    test('error', async () => {
+        const thunk = new TestAsyncThunk(fetch${NAME});
+        thunk.api.get.mockReturnValue(Promise.resolve({ status: 403 }));
+        const result = await thunk.callThunk();
+
+        expect(result.meta.requestStatus).toBe('rejected');
+    });
+});
+---------------------------------
+${NAME}/model/services/fetch${NAME}/fetch${NAME}
+ts
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ${NAME}Type } from '../../types/${NAME.toLowerCase()}';
+
+export const fetch${NAME} = createAsyncThunk<
+    ${NAME},
+    void,
+    ThunkConfig<string>
+    >(
+        '${NAME.toLowerCase()}/fetch${NAME}',
+        async (_, thunkApi) => {
+            const { extra, rejectWithValue } = thunkApi;
+
+            try {
+                const response = await extra.api.get<${NAME}Type>('/${NAME.toLowerCase()}');
+
+                if (!response.data) {
+                    throw new Error();
+                }
+
+                return response.data;
+            } catch (e) {
+                console.log(e);
+                return rejectWithValue('error');
+            }
+        },
+    );
+---------------------------------
+${NAME}/model/selectors/get${NAME}/get${NAME}
+test.ts
+import { StateSchema } from 'app/providers/StoreProvider';
+import { get${NAME} } from './get${NAME}';
+
+describe('get${NAME}.test', () => {
+    test('should return value', () => {
+        const value = {
+        };
+        const state: DeepPartial<StateSchema> = {
+            ${NAME.toLowerCase()}: {
+                value,
+            },
+        };
+        expect(get${NAME}(state as StateSchema)).toEqual(value);
+    });
+    test('should work with empty state', () => {
+        const state: DeepPartial<StateSchema> = {};
+        expect(get${NAME}(state as StateSchema)).toEqual(undefined);
+    });
+});
+---------------------------------
+${NAME}/model/selectors/get${NAME}/get${NAME}
+ts
+import { StateSchema } from 'app/providers/StoreProvider';
+
+export const get${NAME} = (state: StateSchema) => state.${NAME.toLowerCase()}?.data;
+---------------------------------
+${NAME}/ui/${NAME}/${NAME}
+test.tsx
+import { render, screen } from '@testing-library/react';
+import { ${NAME} } from './${NAME}';
+
+describe('${NAME}', () => {
+    test('Test render', () => {
+        render(<${NAME}>TEST</${NAME}>);
+        expect(screen.getByText('TEST')).toBeInTheDocument();
+    });
+
+    test('Test clear theme', () => {
+        render(<${NAME}>TEST</${NAME}>);
+        expect(screen.getByText('TEST')).toHaveClass('');
+        screen.debug();
+    });
+});
+---------------------------------
+${NAME}/ui/${NAME}/${NAME}
+stories.tsx
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ${NAME} } from './${NAME}';
+
+export default {
+    title: 'shared/${NAME}',
+    component: ${NAME},
+    argTypes: {
+        backgroundColor: { control: 'color' },
+    },
+} as ComponentMeta<typeof ${NAME}>;
+
+const Template: ComponentStory<typeof ${NAME}> = (args) => <${NAME} {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+};
+---------------------------------
+${NAME}/ui/${NAME}/${NAME}
+module.scss
+.${NAME.toLowerCase()}{
+
+}
+-------------------********************************--------------
+Create Shared React Component
+---------------------------------
+${NAME}/${NAME}
+import { useTranslation } from 'react-i18next';
+import { ReactNode } from 'react';
+import { classNames } from 'shared/lib/classNames/classNames';
+import cls from "./${NAME}.module.scss"
+
+interface ${NAME}Props {
+    className?: string,
+    children?: ReactNode
+}
+
+export const ${NAME} = (props: ${NAME}Props) => {
+    const {
+        children,
+        className,
+    } = props;
+
+    const { t } = useTranslation();
+
+    const mods: Record<string, boolean> = {
+
+    };
+
+    return (
+        <div className={classNames(cls.${NAME.toLowerCase()}, mods, [className])}>
+            {children}
+        </div>
+    );
+};
+---------------------------------
+${NAME}/${NAME}
+test.tsx
+import { render, screen } from '@testing-library/react';
+import { ${NAME} } from 'shared/ui/${NAME}/${NAME}';
+
+describe('${NAME}', () => {
+    test('Test render', () => {
+        render(<${NAME}>TEST</${NAME}>);
+        expect(screen.getByText('TEST')).toBeInTheDocument();
+    });
+
+    test('Test clear theme', () => {
+        render(<${NAME}>TEST</${NAME}>);
+        expect(screen.getByText('TEST')).toHaveClass('');
+        screen.debug();
+    });
+});
+---------------------------------
+${NAME}/${NAME}
+stories.tsx
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ${NAME} } from 'shared/ui/${NAME}/${NAME}';
+
+export default {
+    title: 'shared/${NAME}',
+    component: ${NAME},
+    argTypes: {
+        backgroundColor: { control: 'color' },
+    },
+} as ComponentMeta<typeof ${NAME}>;
+
+const Template: ComponentStory<typeof ${NAME}> = (args) => <${NAME} {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+};
+---------------------------------
+${NAME}/${NAME}
+module.scss
+.${NAME.toLowerCase()}{
+
+}
+---------------------------------

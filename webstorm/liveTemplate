@@ -1,0 +1,98 @@
+--------------------------------------------------------------------------
+crr
+create react reducer
+function $reducerName$(state = $default$, action){
+    switch(action.type) {
+        case "$first$":
+            return ();
+        default:
+            return state;
+    }
+}
+--------------------------------------------------------------------------
+tc
+try catch
+try {
+
+} catch (e) {
+    return ({message: e.message})
+}
+--------------------------------------------------------------------------
+usef
+use effect hook
+useEffect (($param$) => {
+    $body$
+}, [])
+--------------------------------------------------------------------------
+uss
+use state hook
+value  => camelCase(String)
+value_ => capitalize(value)
+const [$value$, set$value_$] = useState($defaultState$)
+--------------------------------------------------------------------------
+cg
+console log create
+console.log("$value$: ", $value$)
+--------------------------------------------------------------------------
+rc
+create react component
+FILE => fileNameWithoutExtension()
+
+import cls from "./$FILE$.module.scss"
+import {classNames} from "shared/lib/classNames/classNames";
+
+interface $FILE$Props {
+    className?: string,
+}
+
+export const $FILE$ = ({className}: $FILE$Props) => {
+    const mods = {
+
+    };
+    return (
+        <div className={classNames(cls.$FILE$, mods, [className])}>
+        </div>
+    );
+};
+--------------------------------------------------------------------------
+rrr
+create react component
+FILE => fileNameWithoutExtension()
+
+import {classNames} from "shared/lib/classNames/classNames";
+import { ReactNode } from 'react';
+import cls from "./$FILE$.module.scss"
+
+interface $FILE$Props {
+    className?: string,
+    children?: ReactNode
+}
+
+export const $FILE$ = (props: $FILE$Props) => {
+    const {
+        children,
+        className,
+    } = props;
+
+    const mods: Record<string, boolean> = {
+
+    };
+
+    return (
+        <div className={classNames(cls.$FILE$, mods, [className])}>
+            {children}
+        </div>
+    );
+};
+--------------------------------------------------------------------------
+ts
+create test template
+FILE => fileNameWithoutExtension()
+
+describe('$FILE$', () => {
+    test('', () => {
+        expect().toEqual();
+    });
+});
+
+--------------------------------------------------------------------------
