@@ -4,12 +4,13 @@ import { useTheme } from 'app/providers/ThemeProvider';
 import { AppRouter } from 'app/providers/router';
 import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
-import { userActions } from 'entities/User';
-import { useDispatch } from 'react-redux';
+import { getUserInited, userActions } from 'entities/User';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
     const { theme } = useTheme();
     const dispatch = useDispatch();
+    const inited = useSelector(getUserInited);
 
     useEffect(() => {
         dispatch(userActions.initAuthData());
@@ -22,7 +23,7 @@ function App() {
                 {/* eslint-disable-next-line i18next/no-literal-string */}
                 <div className="content-page">
                     <Sidebar />
-                    <AppRouter />
+                    {inited && <AppRouter />}
                 </div>
             </Suspense>
         </div>
