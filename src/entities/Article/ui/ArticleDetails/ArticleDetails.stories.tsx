@@ -1,9 +1,9 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ArticleDetails } from 'shared/ui/ArticleDetails/ArticleDetails';
+import { ArticleDetails } from './ArticleDetails';
 
 export default {
-    title: 'shared/ArticleDetails',
+    title: 'entities/ArticleDetails',
     component: ArticleDetails,
     argTypes: {
         backgroundColor: { control: 'color' },

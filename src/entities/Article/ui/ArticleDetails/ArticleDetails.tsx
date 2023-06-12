@@ -20,7 +20,7 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
 
     return (
         <div className={classNames(cls.articledetails, mods, [className])}>
-            {children}
+            ARTICLE DETAILS COMP
         </div>
     );
 };
