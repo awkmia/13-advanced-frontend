@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { memo, ReactNode } from 'react';
+import { memo, useEffect } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById/fetchArticleById';
 import cls from './ArticleDetails.module.scss';
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 
 interface ArticleDetailsProps {
     className?: string,
-    children?: ReactNode
+    id: string,
 }
 
 const reducers: ReducersList = {
@@ -16,9 +18,14 @@ const reducers: ReducersList = {
 
 export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     const {
-        children,
+        id,
         className,
     } = props;
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchArticleById(id));
+    }, [dispatch, id]);
 
     const { t } = useTranslation();
 
