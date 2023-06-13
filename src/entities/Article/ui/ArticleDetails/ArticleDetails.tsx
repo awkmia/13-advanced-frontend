@@ -1,14 +1,20 @@
 import { useTranslation } from 'react-i18next';
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import cls from './ArticleDetails.module.scss';
+import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 
 interface ArticleDetailsProps {
     className?: string,
     children?: ReactNode
 }
 
-export const ArticleDetails = (props: ArticleDetailsProps) => {
+const reducers: ReducersList = {
+    articleDetails: articleDetailsReducer,
+};
+
+export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     const {
         children,
         className,
@@ -19,8 +25,10 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
     const mods: Record<string, boolean> = {};
 
     return (
-        <div className={classNames(cls.articledetails, mods, [className])}>
-            ARTICLE DETAILS COMP
-        </div>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+            <div className={classNames(cls.articledetails, mods, [className])}>
+                ARTICLE DETAILS COMP
+            </div>
+        </DynamicModuleLoader>
     );
-};
+});
