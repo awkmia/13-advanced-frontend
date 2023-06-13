@@ -5,8 +5,11 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById/fetchArticleById';
-import { Text, TextAlign } from 'shared/ui/Text/Text';
+import { Text, TextAlign, TextSize } from 'shared/ui/Text/Text';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
+import EyeIcon from 'shared/assets/icons/eye-20-20.svg';
+import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg';
+import { Avatar } from 'shared/ui/Avatar/Avatar';
 import {
     getArticleDetailsData,
     getArticleDetailsError,
@@ -31,7 +34,7 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const isLoading = true;
+    const isLoading = useSelector(getArticleDetailsIsLoading);
     const article = useSelector(getArticleDetailsData);
     const error = useSelector(getArticleDetailsError);
 
@@ -61,7 +64,35 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
             />
         );
     } else {
-        content = (<div>ARTICLE DETAILS COMP</div>);
+        content = (
+            <>
+                <div className={cls.avatarWrapper}>
+                    <Avatar
+                        className={cls.avatar}
+                        src={article?.img}
+                        size={200}
+                    />
+                </div>
+                <Text
+                    className={cls.title}
+                    title={article?.title}
+                    text={article?.subtitle}
+                    size={TextSize.L}
+                />
+                <div className={cls.articleInfo}>
+                    <EyeIcon className={cls.icon} />
+                    <Text
+                        text={String(article?.views)}
+                    />
+                </div>
+                <div className={cls.articleInfo}>
+                    <CalendarIcon className={cls.icon} />
+                    <Text
+                        text={article?.createdAt}
+                    />
+                </div>
+            </>
+        );
     }
 
     return (
