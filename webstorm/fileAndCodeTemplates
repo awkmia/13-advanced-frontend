@@ -310,7 +310,7 @@ ${NAME}/${NAME}
 stories.tsx
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ${NAME} } from 'shared/ui/${NAME}/${NAME}';
+import { ${NAME} } from './${NAME}';
 
 export default {
     title: 'shared/${NAME}',
