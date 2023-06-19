@@ -3,22 +3,22 @@ import { ThunkConfig } from 'app/providers/StoreProvider';
 import { getUserAuthData } from 'entities/User';
 import { getArticleDetailsData } from 'entities/Article/model/selectors/articleDetails';
 import { Comment } from 'entities/Comment';
-import { addCommentFormActions } from 'features/addCommentForm/model/slice/addCommentFormSlice';
-import { getAddCommentFormText } from '../../selectors/addCommentFormSelectors';
+import {
+    fetchCommentsByArticleId,
+} from '../../services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 
-export const sendComment = createAsyncThunk<
+export const addCommentForArticle = createAsyncThunk<
     Comment,
-    void,
+    string,
     ThunkConfig<string>>(
-        'addCommentForm/sendComment',
-        async (_, thunkApi) => {
+        'articleDetails/addCommentForArticle',
+        async (text, thunkApi) => {
             const {
                 extra, dispatch, rejectWithValue, getState,
             } = thunkApi;
 
             const userData = getUserAuthData(getState());
             const article = getArticleDetailsData(getState());
-            const text = getAddCommentFormText(getState());
 
             if (!userData || !text || !article) {
                 return rejectWithValue('no data');
@@ -35,7 +35,7 @@ export const sendComment = createAsyncThunk<
                     throw new Error();
                 }
 
-                dispatch(addCommentFormActions.setText(''));
+                dispatch(fetchCommentsByArticleId(article.id));
 
                 return response.data;
             } catch (e) {

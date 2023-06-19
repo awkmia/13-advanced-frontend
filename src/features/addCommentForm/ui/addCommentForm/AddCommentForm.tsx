@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { sendComment } from 'features/addCommentForm/model/services/sendComment/sendComment';
 import { addCommentFormActions, addCommentFormReducer } from '../../model/slice/addCommentFormSlice';
 import {
     getAddCommentFormError,
@@ -16,6 +15,7 @@ import cls from './addCommentForm.module.scss';
 
 export interface AddCommentFormProps {
     className?: string,
+    onSendComment: (text: string) => void;
 }
 
 const reducers: ReducersList = {
@@ -25,6 +25,7 @@ const reducers: ReducersList = {
 const AddCommentForm = (props: AddCommentFormProps) => {
     const {
         className,
+        onSendComment,
     } = props;
 
     const { t } = useTranslation();
@@ -36,9 +37,10 @@ const AddCommentForm = (props: AddCommentFormProps) => {
         dispatch(addCommentFormActions.setText(value));
     }, [dispatch]);
 
-    const onSendComment = useCallback(() => {
-        dispatch(sendComment());
-    }, [dispatch]);
+    const onSendHandler = useCallback(() => {
+        onSendComment(text);
+        onCommentTextChange('');
+    }, [onCommentTextChange, onSendComment, text]);
 
     const mods: Record<string, boolean> = {};
 
@@ -52,7 +54,7 @@ const AddCommentForm = (props: AddCommentFormProps) => {
                     value={text}
                 />
                 <Button
-                    onClick={onSendComment}
+                    onClick={onSendHandler}
                     theme={ButtonTheme.OUTLINE}
                 >
                     {t('Отправить')}
