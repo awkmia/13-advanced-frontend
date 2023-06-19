@@ -1,3 +1,56 @@
+CreateAsyncThunkPOST
+${NAME}/${NAME}
+ts
+
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers/StoreProvider';
+import { Type } from '../../types/Type';
+
+export const ${NAME} = createAsyncThunk<
+    Type,
+    void,
+    ThunkConfig<string>
+    >(
+        'rootComponentFolderPREFIX/${NAME}',
+        async (_, thunkApi) => {
+            const {
+                extra, dispatch, rejectWithValue, getState,
+            } = thunkApi;
+
+            const userData = getUserAuthData(getState());
+            const article = getArticleDetailsData(getState());
+            const text = getAddCommentFormText(getState());
+
+            if (!userData || !text || !article) {
+                return rejectWithValue('no data');
+            }
+
+            try {
+                const response = await extra.api.post<Type>('/${NAME.toLowerCase()}',{
+                    articleId: article.id,
+                    userId: userData.id,
+                    text,
+                });
+
+                if (!response.data) {
+                    throw new Error();
+                }
+
+                return response.data;
+            } catch (e) {
+                return rejectWithValue('error');
+            }
+        },
+    );
+---------------------------------
+CreateSelector
+selectors/${NAME}
+ts
+
+import { StateSchema } from 'app/providers/StoreProvider';
+
+export const ${NAME} = (state: StateSchema) => state.reducer?.data;
+---------------------------------
 Create Entities React Component
 ---------------------------------
 ${NAME}/ui/${NAME}/${NAME}
