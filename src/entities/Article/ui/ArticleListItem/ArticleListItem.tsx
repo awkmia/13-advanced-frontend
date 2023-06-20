@@ -5,6 +5,7 @@ import { Icon } from 'shared/ui/Icon/Icon';
 import EyeIcon from 'shared/assets/icons/eye-20-20.svg';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Card } from 'shared/ui/Card/Card';
+import { useHover } from 'shared/lib/hooks/useHover/useHover';
 import cls from './ArticleListItem.module.scss';
 import { Article, ArticleView } from '../../model/types/article';
 
@@ -22,7 +23,8 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     } = props;
 
     const { t } = useTranslation();
-
+    const [isHover, bindHOver] = useHover();
+    console.log('isHover: ', isHover);
     const mods: Record<string, boolean> = {};
 
     if (view === ArticleView.BIG) {
@@ -34,7 +36,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     }
 
     return (
-        <div className={classNames(cls.ArticleListItem, mods, [className, cls[view]])}>
+        <div {...bindHOver} className={classNames(cls.ArticleListItem, mods, [className, cls[view]])}>
             <Card className={cls.card}>
                 <div className={cls.imageWrapper}>
                     <img alt={article.title} src={article.img} className={cls.img} />
