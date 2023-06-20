@@ -30,7 +30,6 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
 
     const { t } = useTranslation();
     const mods: Record<string, boolean> = {};
-
     const navigate = useNavigate();
 
     const onOpenArticle = useCallback(() => {
