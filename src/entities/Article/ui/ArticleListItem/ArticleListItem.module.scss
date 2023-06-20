@@ -31,10 +31,14 @@
     .infoWrapper {
         display: flex;
         align-items: center;
+        margin-top: 8px;
     }
 
-    .types {
-        margin-top: 8px;
+    .types p {
+        width: 115px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .views {
@@ -44,5 +48,12 @@
 
     .title {
         margin-top: 8px;
+    }
+
+    .title p {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
