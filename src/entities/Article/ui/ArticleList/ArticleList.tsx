@@ -24,13 +24,14 @@ export const ArticleList = memo((props: ArticleListProps) => {
             article={article}
             view={view}
             className={cls.card}
+            key={article.id}
         />
     );
 
     const mods: Record<string, boolean> = {};
 
     return (
-        <div className={classNames(cls.ArticleList, mods, [className])}>
+        <div className={classNames(cls.ArticleList, mods, [className, cls[view]])}>
             {articles.length > 0
                 ? articles.map(renderArticle)
                 : null}

@@ -1,5 +1,56 @@
 .BIG {
+    .views {
+        margin-left: auto;
+    }
 
+    .header {
+        display: flex;
+        align-items: center;
+    }
+
+    .username {
+        margin-left: 8px;
+    }
+
+    .date {
+        margin-left: auto;
+    }
+
+    .title {
+        margin-top: 8px;
+    }
+
+    .img {
+        width: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        margin: 16px 0;
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+        margin-top: 16px;
+    }
+
+    .blur {
+        position: relative;
+    }
+
+    .textBlock {
+        max-height: 200px;
+        overflow-y: hidden;
+    }
+
+    .textBlock::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 15px;
+        background: linear-gradient(transparent, var(--card-bg));
+    }
 }
 
 .SMALL {
@@ -32,6 +83,7 @@
     .img {
         width: 200px;
         height: 200px;
+        object-fit: cover;
     }
 
     .infoWrapper {
