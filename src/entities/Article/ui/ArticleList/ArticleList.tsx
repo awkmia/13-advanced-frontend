@@ -21,10 +21,9 @@ export const ArticleList = memo((props: ArticleListProps) => {
 
     const renderArticle = (article: Article) => (
         <ArticleListItem
-            articles={article}
+            article={article}
             view={view}
         />
-
     );
 
     const mods: Record<string, boolean> = {};

@@ -6,13 +6,16 @@ import cls from './ArticlesPage.module.scss';
 
 const article = {
     id: '1',
-    title: 'Javascript news',
+    title: 'Javascript news more more more more more...',
     subtitle: 'Что нового в JS за 2022 год?',
     img: 'https://teknotower.com/wp-content/uploads/2020/11/js.png',
     views: 1022,
     createdAt: '26.02.2022',
     type: [
         'IT',
+        'SCIENCE',
+        'POLITICS',
+        'ECONOMICS',
     ],
     blocks: [
         {
