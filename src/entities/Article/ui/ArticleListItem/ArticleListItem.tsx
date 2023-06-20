@@ -23,8 +23,6 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     } = props;
 
     const { t } = useTranslation();
-    const [isHover, bindHOver] = useHover();
-    console.log('isHover: ', isHover);
     const mods: Record<string, boolean> = {};
 
     if (view === ArticleView.BIG) {
@@ -36,7 +34,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
     }
 
     return (
-        <div {...bindHOver} className={classNames(cls.ArticleListItem, mods, [className, cls[view]])}>
+        <div className={classNames(cls.ArticleListItem, mods, [className, cls[view]])}>
             <Card className={cls.card}>
                 <div className={cls.imageWrapper}>
                     <img alt={article.title} src={article.img} className={cls.img} />
