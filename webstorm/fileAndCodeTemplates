@@ -1,3 +1,17 @@
+---------------------------------
+CreateTypes
+types/${NAME}
+ts
+
+import React from 'react';
+
+export interface ${NAME} {
+    text: string;
+    isLoading: boolean;
+    error: string;
+}
+---------------------------------
+
 CreateAsyncThunkPOST
 ${NAME}/${NAME}
 ts
