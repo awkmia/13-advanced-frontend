@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Text } from 'shared/ui/Text/Text';
 import { Icon } from 'shared/ui/Icon/Icon';
 import EyeIcon from 'shared/assets/icons/eye-20-20.svg';
@@ -7,6 +7,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Card } from 'shared/ui/Card/Card';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { useNavigate } from 'react-router-dom';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './ArticleListItem.module.scss';
 import {
     Article, ArticleBlockType, ArticleTextBlock, ArticleView,
@@ -26,6 +28,15 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
         view,
     } = props;
 
+    const { t } = useTranslation();
+    const mods: Record<string, boolean> = {};
+
+    const navigate = useNavigate();
+
+    const onOpenArticle = useCallback(() => {
+        navigate(RoutePath.article_details + article.id);
+    }, [article.id, navigate]);
+
     const types = (<Text text={article.type.join(', ')} className={cls.types} />);
     const views = (
         <>
@@ -33,9 +44,6 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
             <Icon Svg={EyeIcon} />
         </>
     );
-
-    const { t } = useTranslation();
-    const mods: Record<string, boolean> = {};
 
     if (view === ArticleView.BIG) {
         const textBlock = article.blocks.find(
@@ -60,6 +68,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
                     )}
                     <div className={cls.footer}>
                         <Button
+                            onClick={onOpenArticle}
                             theme={ButtonTheme.OUTLINE}
                         >
                             {t('Читать далее')}
@@ -73,7 +82,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
 
     return (
         <div className={classNames(cls.ArticleListItem, mods, [className, cls[view]])}>
-            <Card className={cls.card}>
+            <Card className={cls.card} onClick={onOpenArticle}>
                 <div className={cls.imageWrapper}>
                     <img alt={article.title} src={article.img} className={cls.img} />
                     <Text text={article.createdAt} className={cls.date} />
