@@ -171,7 +171,10 @@ ts
 
 import { StateSchema } from 'app/providers/StoreProvider';
 
-export const ${NAME} = (state: StateSchema) => state.reducer?.data;
+export const ${NAME}IsLoading = (state: StateSchema) => state.${NAME}Reducer?.isLoading || false;
+export const ${NAME}Error = (state: StateSchema) => state.${NAME}Reducer?.error;
+export const ${NAME}Data = (state: StateSchema) => state.${NAME}Reducer?.data || {};
+
 ---------------------------------
 Create Entities React Component
 ---------------------------------
