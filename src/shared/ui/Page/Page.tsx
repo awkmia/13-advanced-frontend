@@ -16,8 +16,8 @@ export const Page = (props: PageProps) => {
     const mods: Record<string, boolean> = {};
 
     return (
-        <div className={classNames(cls.Page, mods, [className])}>
+        <section className={classNames(cls.Page, mods, [className])}>
             {children}
-        </div>
+        </section>
     );
 };
