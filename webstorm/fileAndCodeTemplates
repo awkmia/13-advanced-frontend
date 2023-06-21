@@ -1,4 +1,43 @@
 ---------------------------------
+
+---------------------------------
+CreateAsyncThunkGET
+services/${NAME}/${NAME}
+ts
+
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { ThunkConfig } from 'app/providers/StoreProvider';
+import { TYPE } from 'entities/TYPE';
+
+export const ${NAME} = createAsyncThunk<
+    TYPE,
+    void,
+    ThunkConfig<string>
+    >(
+        'ROOTNAMEFOLDER/${NAME}',
+        async (_, thunkApi) => {
+            const {
+                extra, dispatch, rejectWithValue, getState,
+            } = thunkApi;
+
+            try {
+                const response = await extra.api.get<TYPE>('/PATH', {
+                    params: {
+                        _expand: 'user',
+                    },
+                });
+
+                if (!response.data) {
+                    throw new Error();
+                }
+
+                return response.data;
+            } catch (e) {
+                return rejectWithValue('error');
+            }
+        },
+    );
+
 ---------------------------------
 CreateTypesShemaForEntityAdapter
 types/${NAME}Schema
