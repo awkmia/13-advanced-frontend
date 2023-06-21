@@ -1,4 +1,74 @@
 ---------------------------------
+---------------------------------
+CreateTypesShemaForEntityAdapter
+types/${NAME}Schema
+ts
+
+import { EntityState } from '@reduxjs/toolkit';
+import { TYPE, DataTYPE } from 'entities/TYPE';
+
+export interface ${NAME}Schema extends EntityState<TYPE> {
+    isLoading?: boolean;
+    error?: string;
+
+    data: DataTYPE;
+}
+---------------------------------
+CreateSliceEntityAdapter
+slices/${NAME}Slice
+ts
+
+import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { StateSchema } from 'app/providers/StoreProvider';
+import { fetch${NAME}Data } from '../../model/services/fetch${NAME}Data/fetch${NAME}Data';
+
+const ${NAME}Adapter = createEntityAdapter<TYPE>({
+    selectId: (dataTYPE) => dataTYPE.id,
+});
+
+export const getSTATE = ${NAME}Adapter.getSelectors<StateSchema>(
+    (state) => state.REDUCER || ${NAME}Adapter.getInitialState(),
+);
+
+const ${NAME}Slice = createSlice({
+    name: '${NAME}Slice',
+    initialState: ${NAME}Adapter.getInitialState<${NAME}Schema>({
+        isLoading: false,
+        error: undefined,
+        ids: [],
+        entities: {},
+    }),
+    reducers: {
+        reducer1: (state, action: PayloadAction<TYPE>) => {
+            state.view = action.payload;
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetch${NAME}Data.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetch${NAME}Data.fulfilled, (
+                state,
+                action: PayloadAction<TYPE>,
+            ) => {
+                state.isLoading = false;
+            ${NAME}Adapter.setAll(state, action.payload);
+            })
+            .addCase(fetch${NAME}Data.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
+    },
+});
+
+export const {
+    reducer: ${NAME}Reducer,
+    actions: ${NAME}Actions,
+} = ${NAME}Slice;
+
+---------------------------------
 CreateTypes
 types/${NAME}
 ts
@@ -11,7 +81,6 @@ export interface ${NAME} {
     error: string;
 }
 ---------------------------------
-
 CreateAsyncThunkPOST
 ${NAME}/${NAME}
 ts
