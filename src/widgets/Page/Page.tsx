@@ -3,6 +3,8 @@ import {
 } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useInfiniteScroll } from 'shared/lib/hooks/useInfiniteScroll/useInfiniteScroll';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { uiActions } from 'features/UI';
 import cls from './Page.module.scss';
 
 interface PageProps {
@@ -15,6 +17,7 @@ export const Page = memo((props: PageProps) => {
     const { className, children, onScrollEnd } = props;
     const wrapperRef = useRef() as MutableRefObject<HTMLDivElement>;
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>;
+    const dispatch = useAppDispatch();
 
     useInfiniteScroll({
         triggerRef,
@@ -23,6 +26,10 @@ export const Page = memo((props: PageProps) => {
     });
 
     const onScroll = (e: UIEvent<HTMLDivElement>) => {
+        dispatch(uiActions.setScrollPosition({
+            position: e.currentTarget.scrollTop,
+            path: 'temp',
+        }));
         console.log('scroll: ', e.currentTarget.scrollTop);
     };
 
