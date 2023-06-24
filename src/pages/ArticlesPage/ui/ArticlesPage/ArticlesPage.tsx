@@ -47,7 +47,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     });
 
     return (
-        <DynamicModuleLoader reducers={reducer}>
+        <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
             <Page onScrollEnd={onLoadNextPart} className={classNames(cls.ArticlesPage, {}, [className])}>
                 <ArticleViewSelector view={view} onViewClick={onChangeView} />
                 <ArticleList
