@@ -10,6 +10,7 @@ import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEf
 import { useSelector } from 'react-redux';
 import { StateSchema } from 'app/providers/StoreProvider';
 
+import { useThrottle } from 'shared/lib/hooks/useThrottle/useThrottle';
 import cls from './Page.module.scss';
 
 interface PageProps {
@@ -38,13 +39,13 @@ export const Page = memo((props: PageProps) => {
         wrapperRef.current.scrollTop = scrollPosition;
     });
 
-    const onScroll = (e: UIEvent<HTMLDivElement>) => {
+    const onScroll = useThrottle((e: UIEvent<HTMLDivElement>) => {
         dispatch(uiActions.setScrollPosition({
             position: e.currentTarget.scrollTop,
             path: pathname,
         }));
-        console.log('scroll: ', e.currentTarget.scrollTop);
-    };
+        // console.log('scroll: ', e.currentTarget.scrollTop);
+    }, 500);
 
     return (
         <section
