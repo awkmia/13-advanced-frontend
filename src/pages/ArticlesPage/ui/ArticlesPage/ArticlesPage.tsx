@@ -13,7 +13,7 @@ import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchA
 import cls from './ArticlesPage.module.scss';
 import {
     getArticlesPageError,
-    getArticlesPageHasMore,
+    getArticlesPageHasMore, getArticlesPageInited,
     getArticlesPageIsLoading,
     getArticlesPageNum,
     getArticlesPageView,
@@ -35,6 +35,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const isLoading = useSelector(getArticlesPageIsLoading);
     const view = useSelector(getArticlesPageView);
     const error = useSelector(getArticlesPageError);
+    const inited = useSelector(getArticlesPageInited);
 
     const onChangeView = useCallback((view: ArticleView) => {
         dispatch(articlesPageActions.setView(view));
@@ -45,14 +46,16 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(articlesPageActions.initState());
-        dispatch(fetchArticlesList({
-            page: 1,
-        }));
+        if (!inited) {
+            dispatch(articlesPageActions.initState());
+            dispatch(fetchArticlesList({
+                page: 1,
+            }));
+        }
     });
 
     return (
-        <DynamicModuleLoader reducers={reducer}>
+        <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
             <Page onScrollEnd={onLoadNextPart} className={classNames(cls.ArticlesPage, {}, [className])}>
                 <ArticleViewSelector view={view} onViewClick={onChangeView} />
                 <ArticleList
