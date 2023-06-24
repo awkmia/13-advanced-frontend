@@ -1,5 +1,5 @@
 import {
-    memo, MutableRefObject, ReactNode, useRef,
+    memo, MutableRefObject, ReactNode, UIEvent, useRef,
 } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useInfiniteScroll } from 'shared/lib/hooks/useInfiniteScroll/useInfiniteScroll';
@@ -22,8 +22,13 @@ export const Page = memo((props: PageProps) => {
         callback: onScrollEnd,
     });
 
+    const onScroll = (e: UIEvent<HTMLDivElement>) => {
+        console.log('scroll: ', e.currentTarget.scrollTop);
+    };
+
     return (
         <section
+            onScroll={onScroll}
             ref={wrapperRef}
             className={classNames(cls.Page, {}, [className])}
         >
