@@ -6,17 +6,17 @@ import {
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { ProfileSchema } from 'entities/Profile';
-// import { To } from 'history';
-// import { NavigateOptions } from 'react-router';
 import { AxiosInstance } from 'axios';
 import { ArticleDetailsSchema } from 'entities/Article';
 import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 import { AddCommentFormSchema } from 'features/addCommentForm';
 import { ArticlesPageSchema } from 'pages/ArticlesPage';
+import { UISchema } from 'features/UI';
 
 export interface StateSchema {
     counter: CounterSchema;
     user: UserSchema;
+    ui: UISchema;
 
     // Асинхронные редюсеры
     loginForm?: LoginSchema;
@@ -45,7 +45,6 @@ export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
 
 export interface ThunkExtraArg {
     api: AxiosInstance,
-    // navigate?: (to: To, options?: NavigateOptions) => void,
 }
 
 export interface ThunkConfig<T> {
