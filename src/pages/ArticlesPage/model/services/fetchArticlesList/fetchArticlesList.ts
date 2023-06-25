@@ -11,6 +11,7 @@ import {
 } from '../../selectors/articlesPageSelectors';
 
 interface FetchArticlesListProps {
+    replace?: boolean;
 }
 
 export const fetchArticlesList = createAsyncThunk<
