@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
@@ -34,13 +35,14 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const isLoading = useSelector(getArticlesPageIsLoading);
     const view = useSelector(getArticlesPageView);
     const error = useSelector(getArticlesPageError);
+    const [searchParams] = useSearchParams();
 
     const onLoadNextPart = useCallback(() => {
         dispatch(fetchNextArticlesPage());
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(initArticlesPage());
+        dispatch(initArticlesPage(searchParams));
     });
 
     return (
