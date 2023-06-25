@@ -49,6 +49,11 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
         dispatch(articlesPageActions.setPage(1));
     }, [dispatch]);
 
+    const onChangeSearch = useCallback((search: string) => {
+        dispatch(articlesPageActions.setSearch(search));
+        dispatch(articlesPageActions.setPage(1));
+    }, [dispatch]);
+
     return (
         <div className={classNames(cls.ArticlesPageFilters, {}, [className])}>
             <div className={cls.sortWrapper}>
@@ -65,6 +70,8 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
             </div>
             <Card className={cls.search}>
                 <Input
+                    onChange={onChangeSearch}
+                    value={search}
                     placeholder={t('Поиск')}
                 />
             </Card>
