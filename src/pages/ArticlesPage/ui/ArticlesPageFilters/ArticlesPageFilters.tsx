@@ -12,6 +12,7 @@ import { Input } from 'shared/ui/Input/Input';
 import { SortOrder } from 'shared/types';
 import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
 import { ArticleType } from 'entities/Article/model/types/article';
+import { TabItem, Tabs } from 'shared/ui/Tabs/Tabs';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import cls from './ArticlesPageFilters.module.scss';
 import {
@@ -39,6 +40,25 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
         dispatch(fetchArticlesList({ replace: true }));
     }, [dispatch]);
 
+    const typeTabs = useMemo<TabItem[]>(() => [
+        {
+            value: ArticleType.ALL,
+            content: t('Все статьи'),
+        },
+        {
+            value: ArticleType.IT,
+            content: t('Айти'),
+        },
+        {
+            value: ArticleType.ECONOMICS,
+            content: t('Экономика'),
+        },
+        {
+            value: ArticleType.SCIENCE,
+            content: t('Наука'),
+        },
+    ], [t]);
+
     const debouncedFetchData = useDebounce(fetchData, 500);
 
     const onChangeView = useCallback((view: ArticleView) => {
@@ -59,6 +79,12 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
 
     const onChangeSearch = useCallback((search: string) => {
         dispatch(articlesPageActions.setSearch(search));
+        dispatch(articlesPageActions.setPage(1));
+        debouncedFetchData();
+    }, [dispatch, debouncedFetchData]);
+
+    const onChangeType = useCallback((tab: TabItem) => {
+        dispatch(articlesPageActions.setType(tab.value as ArticleType));
         dispatch(articlesPageActions.setPage(1));
         debouncedFetchData();
     }, [dispatch, debouncedFetchData]);
@@ -84,6 +110,12 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
                     placeholder={t('Поиск')}
                 />
             </Card>
+            <Tabs
+                value={type}
+                tabs={typeTabs}
+                onTabClick={onChangeType}
+                className={cls.tabs}
+            />
         </div>
     );
 });
