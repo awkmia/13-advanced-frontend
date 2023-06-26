@@ -40,7 +40,7 @@ module.exports = {
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
-        'max-len': [2, { code: 120, ignoreComments: true, ignorePattern: '^.*function.*' }],
+        'max-len': [2, { code: 125, ignoreComments: true, ignorePattern: '^.*function.*' }],
         // 'i18next/no-literal-string': ['error', { markupOnly: true }],
         'i18next/no-literal-string': [
             'error', { markupOnly: true, ignoreAttribute: ['data-testid', 'to'] }],
@@ -55,6 +55,7 @@ module.exports = {
         'no-param-reassign': 'off', // for Redux innerjs
         'no-undef': 'off',
         'react/no-array-index-key': 'off',
+        'arrow-body-style': 'off',
     },
     globals: {
         __IS_DEV__: true,
