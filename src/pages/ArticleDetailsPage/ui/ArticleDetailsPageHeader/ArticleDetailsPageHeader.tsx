@@ -21,7 +21,6 @@ export const ArticleDetailsPageHeader = memo((props: ArticleDetailsPageHeaderPro
     const { t } = useTranslation();
     const mods: Record<string, boolean> = {};
     const navigate = useNavigate();
-    const userData = useSelector(getUserAuthData);
     const article = useSelector(getArticleDetailsData);
     const canEdit = useSelector(getCanEditArticle);
 
@@ -29,21 +28,27 @@ export const ArticleDetailsPageHeader = memo((props: ArticleDetailsPageHeaderPro
         navigate(RoutePath.articles);
     }, [navigate]);
 
+    const onEditArticle = useCallback(() => {
+        navigate(`${RoutePath.article_details}${article?.id}/edit`);
+    }, [article?.id, navigate]);
+
     return (
-        <div className={classNames(cls.articledetailspageheader, mods, [className])}>
+        <div className={classNames(cls.ArticleDetailsPageHeader, mods, [className])}>
             <Button
                 theme={ButtonTheme.OUTLINE}
                 onClick={onBackToList}
             >
                 {t('Назад к списку')}
             </Button>
-            <Button
-                className={cls.editBtn}
-                theme={ButtonTheme.OUTLINE}
-                onClick={onBackToList}
-            >
-                {t('Редактировать')}
-            </Button>
+            {canEdit && (
+                <Button
+                    className={cls.editBtn}
+                    theme={ButtonTheme.OUTLINE}
+                    onClick={onEditArticle}
+                >
+                    {t('Редактировать')}
+                </Button>
+            )}
         </div>
     );
 });
