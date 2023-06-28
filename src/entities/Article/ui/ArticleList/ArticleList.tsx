@@ -2,6 +2,9 @@ import { useTranslation } from 'react-i18next';
 import { HTMLAttributeAnchorTarget, memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Text, TextSize } from 'shared/ui/Text/Text';
+import {
+    AutoSizer, List, ListRowProps, WindowScroller,
+} from 'react-virtualized';
 import { ArticleListItem } from '../ArticleListItem/ArticleListItem';
 import { ArticleListItemSkeleton } from '../ArticleListItem/ArticleListItemSkeleton';
 import { Article, ArticleView } from '../../model/types/article';
@@ -51,11 +54,22 @@ export const ArticleList = memo((props: ArticleListProps) => {
     }
 
     return (
-        <div className={classNames(cls.ArticleList, mods, [className, cls[view]])}>
-            {articles.length > 0
-                ? articles.map(renderArticle)
-                : null}
-            {isLoading && getSkeletons(view)}
-        </div>
+        <AutoSizer>
+            {({ width, height }) => (
+                <List
+                    height={500}
+                    rowCount={articles.length}
+                    rowHeight={500}
+                    rowRenderer={() => <div>row</div>}
+                    width={width}
+                />
+            )}
+        </AutoSizer>
+        // <div className={classNames(cls.ArticleList, mods, [className, cls[view]])}>
+        //     {articles.length > 0
+        //         ? articles.map(renderArticle)
+        //         : null}
+        //     {isLoading && getSkeletons(view)}
+        // </div>
     );
 });
