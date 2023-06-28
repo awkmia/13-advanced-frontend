@@ -3,8 +3,9 @@ import { HTMLAttributeAnchorTarget, memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Text, TextSize } from 'shared/ui/Text/Text';
 import {
-    AutoSizer, List, ListRowProps, WindowScroller,
+    List, ListRowProps, WindowScroller,
 } from 'react-virtualized';
+import { PAGE_ID } from 'widgets/Page/Page';
 import { ArticleListItem } from '../ArticleListItem/ArticleListItem';
 import { ArticleListItemSkeleton } from '../ArticleListItem/ArticleListItemSkeleton';
 import { Article, ArticleView } from '../../model/types/article';
@@ -35,15 +36,24 @@ export const ArticleList = memo((props: ArticleListProps) => {
     const mods: Record<string, boolean> = {};
     const { t } = useTranslation();
 
-    const renderArticle = (article: Article) => (
-        <ArticleListItem
-            article={article}
-            view={view}
-            className={cls.card}
-            key={article.id}
-            target={target}
-        />
-    );
+    const rowRender = ({
+        index, isScrolling, key, style,
+    }: ListRowProps) => {
+        console.log('render row');
+        return (
+            <div
+                key={key}
+                style={style}
+            >
+                <ArticleListItem
+                    article={articles[index]}
+                    view={view}
+                    className={cls.card}
+                    target={target}
+                />
+            </div>
+        );
+    };
 
     if (!isLoading && !articles.length) {
         return (
@@ -54,22 +64,33 @@ export const ArticleList = memo((props: ArticleListProps) => {
     }
 
     return (
-        <AutoSizer>
-            {({ width, height }) => (
-                <List
-                    height={500}
-                    rowCount={articles.length}
-                    rowHeight={500}
-                    rowRenderer={() => <div>row</div>}
-                    width={width}
-                />
+        <WindowScroller
+            onScroll={() => console.log('scroll')}
+            scrollElement={document.getElementById(PAGE_ID) as Element}
+        >
+            {({
+                width,
+                height,
+                registerChild,
+                onChildScroll,
+                isScrolling,
+                scrollTop,
+            }) => (
+                <div ref={registerChild} className={classNames(cls.ArticleList, mods, [className, cls[view]])}>
+                    <List
+                        height={height ?? 700}
+                        rowCount={articles.length}
+                        rowHeight={700}
+                        rowRenderer={rowRender}
+                        width={width ? width - 80 : 700}
+                        autoHeight
+                        onScroll={onChildScroll}
+                        isScrolling={isScrolling}
+                        scrollTop={scrollTop}
+                    />
+                    {isLoading && getSkeletons(view)}
+                </div>
             )}
-        </AutoSizer>
-        // <div className={classNames(cls.ArticleList, mods, [className, cls[view]])}>
-        //     {articles.length > 0
-        //         ? articles.map(renderArticle)
-        //         : null}
-        //     {isLoading && getSkeletons(view)}
-        // </div>
+        </WindowScroller>
     );
 });
