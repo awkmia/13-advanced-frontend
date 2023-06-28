@@ -117,7 +117,8 @@
       "createdAt": "26.02.2019",
       "userId": "1",
       "type": [
-        "IT", "ECONOMICS"
+        "IT",
+        "ECONOMICS"
       ],
       "blocks": [
         {
@@ -586,7 +587,7 @@
   "profile": [
     {
       "id": "1",
-      "first": "jgh",
+      "first": "jgh1",
       "lastname": "asf",
       "age": 465,
       "currency": "RUB",
