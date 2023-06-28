@@ -22,6 +22,7 @@ module.exports = {
         '@typescript-eslint',
         'i18next',
         'react-hooks',
+        'awkmia-plugin',
     ],
     ignorePatterns: ['src/shared/lib/classNames/bem.ts', '**[iI]gnored*'],
     rules: {
@@ -56,6 +57,7 @@ module.exports = {
         'no-undef': 'off',
         'react/no-array-index-key': 'off',
         'arrow-body-style': 'off',
+        'awkmia-plugin/path-checker': 'error',
     },
     globals: {
         __IS_DEV__: true,
