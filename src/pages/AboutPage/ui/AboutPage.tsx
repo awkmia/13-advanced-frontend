@@ -16,7 +16,16 @@ function AboutPage() {
             <div>Абра-кадабра-а-а-а-а-а-а-а-а-а-а-а!!!</div>
             <HStack>
                 <div>Абра-кадабра-а-а-а-а-а-а-а-а-а-а-а!!!</div>
-                <ListBox />
+                <ListBox
+                    defaultValue="Выберите значение"
+                    value={undefined}
+                    onChange={(value: string) => {}}
+                    items={[
+                        { value: '1', content: 'first' },
+                        { value: '2', content: 'second', disabled: true },
+                        { value: '3', content: 'third' },
+                    ]}
+                />
             </HStack>
             <div>Абра-кадабра-а-а-а-а-а-а-а-а-а-а-а!!!</div>
             <div>Абра-кадабра-а-а-а-а-а-а-а-а-а-а-а!!!</div>
