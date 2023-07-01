@@ -18,25 +18,47 @@ const profile: Profile = {
     username: 'admin213',
 };
 
+const options = {
+    initialState: {
+        profile: {
+            data: profile,
+            form: profile,
+            readonly: true,
+        },
+        user: {
+            authData: { id: '1', username: 'admin213' },
+        },
+
+    },
+    asyncReducers: {
+        profile: profileReducer,
+    },
+};
+
 describe('features/EditableProfileCard', () => {
     test('Режим readonly должен переключиться', async () => {
-        componentRender(<EditableProfileCard id="1" />, {
-            initialState: {
-                profile: {
-                    data: profile,
-                    form: profile,
-                    readonly: true,
-                },
-                user: {
-                    authData: { id: '1', username: 'admin213' },
-                },
-
-            },
-            asyncReducers: {
-                profile: profileReducer,
-            },
-        });
+        componentRender(<EditableProfileCard id="1" />, options);
         await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
         expect(screen.getByTestId('EditableProfileCardHeader.CancelButton')).toBeInTheDocument();
+    });
+
+    test('При отмене значения должны обнуляться', async () => {
+        componentRender(<EditableProfileCard id="1" />, options);
+
+        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
+
+        await userEvent.clear(screen.getByTestId('ProfileCard.firstname'));
+        await userEvent.clear(screen.getByTestId('ProfileCard.lastname'));
+
+        await userEvent.type(screen.getByTestId('ProfileCard.firstname'), 'user');
+        await userEvent.type(screen.getByTestId('ProfileCard.lastname'), 'user');
+
+        expect(screen.getByTestId('ProfileCard.firstname')).toHaveValue('user');
+        expect(screen.getByTestId('ProfileCard.lastname')).toHaveValue('user');
+
+        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.CancelButton'));
+
+        expect(screen.getByTestId('ProfileCard.firstname')).toHaveValue('admin');
+        expect(screen.getByTestId('ProfileCard.lastname')).toHaveValue('admin');
     });
 });
