@@ -3,6 +3,8 @@ import { componentRender } from 'shared/lib/tests/componentRender/componentRende
 import { Profile } from 'entities/Profile';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
+import userEvent from '@testing-library/user-event';
+import { profileReducer } from '../../model/slice/profileSlice';
 import { EditableProfileCard } from './EditableProfileCard';
 
 const profile: Profile = {
@@ -18,7 +20,23 @@ const profile: Profile = {
 
 describe('features/EditableProfileCard', () => {
     test('Режим readonly должен переключиться', async () => {
-        componentRender(<EditableProfileCard id="1" />);
+        componentRender(<EditableProfileCard id="1" />, {
+            initialState: {
+                profile: {
+                    data: profile,
+                    form: profile,
+                    readonly: true,
+                },
+                user: {
+                    authData: { id: '1', username: 'admin213' },
+                },
+
+            },
+            asyncReducers: {
+                profile: profileReducer,
+            },
+        });
+        await userEvent.click(screen.getByTestId('EditableProfileCardHeader.EditButton'));
         expect(screen.getByTestId('EditableProfileCardHeader.CancelButton')).toBeInTheDocument();
     });
 });
