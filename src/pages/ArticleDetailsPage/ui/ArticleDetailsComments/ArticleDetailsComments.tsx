@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { VStack } from 'shared/ui/Stack';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Loader } from 'shared/ui/Loader/Loader';
 import {
     fetchCommentsByArticleId,
 } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
@@ -41,8 +42,9 @@ export const ArticleDetailsComments = memo((props: ArticleDetailsCommentsProps) 
                 size={TextSize.L}
                 title={t('Комментарии')}
             />
-            <Suspense fallback={<div>...</div>} />
-            <AddCommentForm onSendComment={onSendComment} />
+            <Suspense fallback={<Loader />}>
+                <AddCommentForm onSendComment={onSendComment} />
+            </Suspense>
             <CommentList
                 isLoading={commentsIsLoading}
                 comments={comments}
