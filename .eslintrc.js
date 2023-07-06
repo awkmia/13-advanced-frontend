@@ -47,7 +47,16 @@ module.exports = {
             'error', {
                 markupOnly: true,
                 ignoreAttribute: [
-                    'as', 'role', 'data-testid', 'to', 'target', 'justify', 'align', 'direction', 'gap',
+                    'as',
+                    'role',
+                    'data-testid',
+                    'to',
+                    'target',
+                    'justify',
+                    'align',
+                    'border',
+                    'direction',
+                    'gap',
                 ],
             }],
         // 'i18next/no-literal-string': 'off',
