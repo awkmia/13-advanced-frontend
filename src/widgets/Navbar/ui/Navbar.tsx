@@ -10,7 +10,7 @@ import {
     getUserAuthData, isUserAdmin, isUserManager, userActions,
 } from 'entities/User';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Dropdown } from 'shared/ui/Dropdown/Dropdown';
+import { Dropdown } from 'shared/ui/Popups';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { HStack } from 'shared/ui/Stack';
 import { Icon } from 'shared/ui/Icon/Icon';
