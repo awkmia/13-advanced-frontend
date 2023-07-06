@@ -15,7 +15,9 @@ export const NotificationList = memo((props: NotificationListProps) => {
         className,
     } = props;
     const mods: Record<string, boolean> = {};
-    const { data, isLoading } = useNotifications(null);
+    const { data, isLoading } = useNotifications(null, {
+        pollingInterval: 15000,
+    });
 
     if (isLoading) {
         return (
