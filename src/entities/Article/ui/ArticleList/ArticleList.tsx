@@ -131,3 +131,4 @@ export const ArticleList = memo((props: ArticleListProps) => {
         </WindowScroller>
     );
 });
+// In lesson 83 we cut out virtualized
