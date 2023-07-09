@@ -6,15 +6,11 @@ import { LoginModal } from 'features/AuthByUsername';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import {
-    getUserAuthData,
-} from 'entities/User';
+import { getUserAuthData } from 'entities/User';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { HStack } from 'shared/ui/Stack';
 import { NotificationButton } from 'features/notificationButton';
 import { AvatarDropdown } from 'features/avatarDropdown';
-import { Drawer } from 'shared/ui/Drawer/Drawer';
-import { NotificationList } from 'entities/Notification';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -34,14 +30,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         setIsAuthModal(true);
     }, []);
 
-    const [isOpen, setIsOpen] = useState(false);
-    const onOpenDrawer = useCallback(() => {
-        setIsOpen(true);
-    }, []);
-    const onCloseDrawer = useCallback(() => {
-        setIsOpen(false);
-    }, []);
-
     if (authData) {
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
@@ -58,10 +46,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     {t('Создать статью')}
                 </AppLink>
                 <HStack gap="16" className={cls.action}>
-                    <button onClick={onOpenDrawer}>click</button>
-                    <Drawer isOpen={isOpen} onClose={onCloseDrawer}>
-                        <NotificationList />
-                    </Drawer>
                     <NotificationButton />
                     <AvatarDropdown />
                 </HStack>
