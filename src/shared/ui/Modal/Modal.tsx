@@ -4,7 +4,7 @@ import React, {
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { useTheme } from 'app/providers/ThemeProvider';
 import cls from './Modal.module.scss';
-import { Portal } from './Portal/Portal';
+import { Portal } from '../Portal/Portal';
 
 interface ModalProps {
     className?: string,
