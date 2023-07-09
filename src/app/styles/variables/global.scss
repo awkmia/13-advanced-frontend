@@ -32,6 +32,9 @@
     --sidebar-button-z-index: 100;
     --dropdown-menu-z-index: 100;
     --listbox-options-z-index: 100;
+    --drawer-disable-z-index: -1;
+    --drawer-z-index: 100;
+    --overlay-z-index: -1;
 
     // Цвета
     --overlay-color: rgba(0 0 0 / 60%);
