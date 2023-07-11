@@ -1,8 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page } from '@/widgets/Page/Page';
-import { StarRating } from '@/shared/ui/StarRating/StarRating';
-import { RatingCard } from '@/entities/Rating';
 
 function AboutPage() {
     // NameSpace нужно добавить public/locales/en/...
@@ -13,12 +11,6 @@ function AboutPage() {
     return (
         <Page>
             {t('О сайте')}
-            <RatingCard
-                title="Как вам статья?"
-                feedbackTitle="Оставьте отзыв о статье"
-                hasFeedback
-            />
-            <StarRating />
         </Page>
     );
 }
