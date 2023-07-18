@@ -32,3 +32,4 @@ Thumbs.db
 /storybook-static
 .loki/report.html
 .loki/report.json
+/eslint-plugin-awkmia-plugin
