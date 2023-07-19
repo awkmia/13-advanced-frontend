@@ -28,3 +28,4 @@ root.render(
 );
 
 // https://feature-sliced.design/
+export { Theme } from '@/shared/const/theme';
