@@ -23,11 +23,13 @@ module.exports = {
         'i18next',
         'react-hooks',
         'awkmia-plugin',
+        'unused-imports',
     ],
     ignorePatterns: ['src/shared/lib/classNames/bem.ts', '**[iI]gnored*'],
     rules: {
         'react/jsx-indent': [2, 4],
         'react/jsx-indent-props': [2, 4],
+        'unused-imports/no-unused-imports': 'error',
         indent: [2, 4],
         'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.tsx'] }],
         'import/no-unresolved': 'off',
