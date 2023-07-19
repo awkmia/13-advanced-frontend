@@ -3,9 +3,9 @@ import { memo, useMemo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Select, SelectOption } from '@/shared/ui/Select';
 import { SortOrder } from '@/shared/types';
-import { ArticleSortField } from '../../model/consts/articleConsts';
 import cls from './ArticleSortSelector.module.scss';
-// Generic
+import { ArticleSortField } from '@/entities/Article';
+
 interface ArticleSortSelectorProps {
     className?: string;
     sort: ArticleSortField;
@@ -54,7 +54,7 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
                 value={sort}
                 onChange={onChangeSort}
             />
-            <Select<SortOrder>
+            <Select
                 options={orderOptions}
                 label={t('по')}
                 value={order}
