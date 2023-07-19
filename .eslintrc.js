@@ -72,6 +72,13 @@ module.exports = {
         'react/no-array-index-key': 'off',
         'arrow-body-style': 'off',
         'awkmia-plugin/path-checker': ['error', { alias: '@' }],
+        'awkmia-plugin/layer-imports': [
+            'error',
+            {
+                alias: '@',
+                ignoreImportPatterns: ['**/StoreProvider', '**/testing'],
+            },
+        ],
         'awkmia-plugin/public-api-imports': [
             'error',
             {
