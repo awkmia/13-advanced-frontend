@@ -9,7 +9,9 @@ function MainPage() {
     const { t } = useTranslation();
 
     return (
-        <Page>
+        <Page
+            data-testid="MainPage"
+        >
             {t('Главная страница')}
             <hr />
             {t('i18n support')}
