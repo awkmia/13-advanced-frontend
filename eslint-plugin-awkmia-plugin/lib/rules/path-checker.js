@@ -22,7 +22,7 @@ module.exports = {
       recommended: false,
       url: null, // URL to the documentation page for this rule
     },
-    fixable: null, // Or `code` or `whitespace`
+    fixable: 'code', // Or `code` or `whitespace`
     // Add a schema if the rule has options
     schema: [
       {
@@ -49,7 +49,25 @@ module.exports = {
         const fromFilename = context.getFilename();
 
         if(shouldBeRelative(fromFilename, importTo)) {
-          context.report(node, 'В рамках одного слайса все пути должны быть относительными');
+          context.report({
+            node,
+            message: 'В рамках одного слайса все пути должны быть относительными',
+            fix: (fixer) => {
+              const normalizedPath = getNormalizedCurrentFilePath(fromFilename) // /entities/Article/Article.tsx
+                  .split('/')
+                  .slice(0, -1)
+                  .join('/');
+              let relativePath = path.relative(normalizedPath, `/${importTo}`)
+                  .split('\\')
+                  .join('/');
+
+              if(!relativePath.startsWith('.')) {
+                relativePath = './' + relativePath;
+              }
+
+              return fixer.replaceText(node.source, `'${relativePath}'`)
+            }
+          });
         }
       }
     };
@@ -62,6 +80,12 @@ const layers = {
   'shared': 'shared',
   'pages': 'pages',
   'widgets': 'widgets',
+}
+
+function getNormalizedCurrentFilePath(currentFilePath) {
+  const normalizedPath = path.toNamespacedPath(currentFilePath);
+  const projectFrom = normalizedPath.split('src')[1];
+  return projectFrom.split('\\').join('/')
 }
 
 function shouldBeRelative(from, to) {
@@ -78,9 +102,8 @@ function shouldBeRelative(from, to) {
     return false;
   }
 
-  const normalizedPath = path.toNamespacedPath(from);
-  const projectFrom = normalizedPath.split('src')[1];
-  const fromArray = projectFrom.split('\\')
+  const projectFrom = getNormalizedCurrentFilePath(from);
+  const fromArray = projectFrom.split('/')
 
   const fromLayer = fromArray[1];
   const fromSlice = fromArray[2];
@@ -93,7 +116,6 @@ function shouldBeRelative(from, to) {
 }
 
 // console.log(shouldBeRelative('C:\\Users\\tim\\Desktop\\javascript\\GOOD_COURSE_test\\src\\entities\\Article', 'entities/Article/fasfasfas'))
-// console.log(shouldBeRelative('C:\\Users\\tim\\Desktop\\javascript\\GOOD_COURSE_test\\src\\entitsrc\\Article', 'entitsrc/Article/fasfasfas'))
 // console.log(shouldBeRelative('C:\\Users\\tim\\Desktop\\javascript\\GOOD_COURSE_test\\src\\entities\\Article', 'entities/ASdasd/fasfasfas'))
 // console.log(shouldBeRelative('C:\\Users\\tim\\Desktop\\javascript\\GOOD_COURSE_test\\src\\entities\\Article', 'features/Article/fasfasfas'))
 // console.log(shouldBeRelative('C:\\Users\\tim\\Desktop\\javascript\\GOOD_COURSE_test\\src\\features\\Article', 'features/Article/fasfasfas'))
