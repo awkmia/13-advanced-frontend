@@ -1,5 +1,3 @@
-import { selectByTestId } from '../../helpers/selectByTestId';
-
 describe('Пользователь заходит на страницу профиля', () => {
     beforeEach(() => {
         cy.visit('');
@@ -8,7 +6,7 @@ describe('Пользователь заходит на страницу проф
         });
     });
     it('И профиль успешно загружается', () => {
-        cy.get(selectByTestId('ProfileCard.firstname')).should('have.value', 'test');
+        cy.getByTestId('ProfileCard.firstname').should('have.value', 'test');
     });
     it('И редактирует его', () => {
     });
