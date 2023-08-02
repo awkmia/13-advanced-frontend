@@ -20,13 +20,14 @@ describe('Пользователь заходит на страницу стат
     it('И оставляет комментарий', () => {
         cy.getByTestId('ArticleDetails.Info');
         cy.getByTestId('AddCommentForm').scrollIntoView();
-        // cy.addComment('text');
-        // cy.getByTestId('CommentCard.Content').should('have.length', 1);
+        cy.addComment('text');
+        cy.addComment('text2');
+        cy.getByTestId('CommentCard.Content').should('have.length', 2);
     });
     it('И ставит оценку', () => {
         cy.getByTestId('ArticleDetails.Info');
         cy.getByTestId('RatingCard').scrollIntoView();
-        // cy.setRate(4, 'feedback');
-        // cy.get('[data-selected=true]').should('have.length', 4);
+        cy.setRate(4, 'feedback');
+        cy.get('[data-selected=true]').should('have.length', 4);
     });
 });
