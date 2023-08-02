@@ -16,13 +16,14 @@ describe('Роутинг', () => {
         });
     });
     describe('Пользователь авторизован', () => {
-        it('Переход на страницу профиля', () => {
+        beforeEach(() => {
             cy.login('admin', '123');
+        });
+        it('Переход на страницу профиля', () => {
             cy.visit('/profile/1');
             cy.get(selectByTestId('ProfilePage')).should('exist');
         });
         it('Переход открывает страницу со списком статей', () => {
-            cy.login('admin', '123');
             cy.visit('/articles');
             cy.get(selectByTestId('ArticlesPage')).should('exist');
         });
