@@ -1,4 +1,4 @@
-import { login } from './commands/login';
+import { login } from './commands/common';
 
 Cypress.Commands.add('login', login);
 
