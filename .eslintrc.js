@@ -25,7 +25,7 @@ module.exports = {
         'awkmia-plugin',
         'unused-imports',
     ],
-    ignorePatterns: ['src/shared/lib/classNames/bem.ts', '**[iI]gnored*'],
+    ignorePatterns: ['src/shared/lib/classNames/bem.ts', '**[iI]gnored*', 'src/eslint-plugin-awkmia-plugin/*'],
     rules: {
         'react/jsx-indent': [2, 4],
         'react/jsx-indent-props': [2, 4],
@@ -100,6 +100,12 @@ module.exports = {
             rules: {
                 'i18next/no-literal-string': 'off',
                 'max-len': 'off',
+            },
+        },
+        {
+            files: ['src/eslint-plugin-awkmia-plugin/*'], // Or *.test.js
+            rules: {
+                'require-jsdoc': 'off',
             },
         },
     ],
