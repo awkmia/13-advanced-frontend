@@ -8,6 +8,8 @@ module.exports = {
         'plugin:react/recommended',
         'airbnb',
         'plugin:i18next/recommended',
+        'plugin:storybook/recommended',
+        'prettier',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -25,16 +27,23 @@ module.exports = {
         'awkmia-plugin',
         'unused-imports',
     ],
-    ignorePatterns: ['src/shared/lib/classNames/bem.ts', '**[iI]gnored*', 'src/eslint-plugin-awkmia-plugin/*'],
+    ignorePatterns: [
+        'src/shared/lib/classNames/bem.ts',
+        '**[iI]gnored*',
+        'src/eslint-plugin-awkmia-plugin/*',
+    ],
     rules: {
-        'react/jsx-indent': [2, 4],
-        'react/jsx-indent-props': [2, 4],
         'unused-imports/no-unused-imports': 'error',
-        indent: [2, 4],
-        'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.tsx'] }],
+        'react/jsx-filename-extension': [
+            2,
+            { extensions: ['.js', '.jsx', '.tsx'] },
+        ],
         'import/no-unresolved': 'off',
         'import/prefer-default-export': 'off',
-        'no-unused-vars': [1, { varsIgnorePattern: '^[A-Z]|^[_]', argsIgnorePattern: '^[_]' }],
+        'no-unused-vars': [
+            1,
+            { varsIgnorePattern: '^[A-Z]|^[_]', argsIgnorePattern: '^[_]' },
+        ],
         'react/require-default-props': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-props-no-spreading': 'warn',
@@ -43,10 +52,14 @@ module.exports = {
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
-        'max-len': [2, { code: 125, ignoreComments: true, ignorePattern: '^.*function.*' }],
+        'max-len': [
+            2,
+            { code: 125, ignoreComments: true, ignorePattern: '^.*function.*' },
+        ],
         // 'i18next/no-literal-string': ['error', { markupOnly: true }],
         'i18next/no-literal-string': [
-            'error', {
+            'error',
+            {
                 markupOnly: true,
                 ignoreAttribute: [
                     'as',
@@ -60,7 +73,8 @@ module.exports = {
                     'direction',
                     'gap',
                 ],
-            }],
+            },
+        ],
         // 'i18next/no-literal-string': 'off',
         'no-console': 'off',
         // 'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
@@ -85,9 +99,14 @@ module.exports = {
             'error',
             {
                 alias: '@',
-                testFilesPatterns: ['**/*.test.*', '**/*.story.*', '**/StoreDecorator.tsx'],
+                testFilesPatterns: [
+                    '**/*.test.*',
+                    '**/*.story.*',
+                    '**/StoreDecorator.tsx',
+                ],
             },
         ],
+        'react/jsx-max-props-per-line': ['error', { maximum: 4 }],
     },
     globals: {
         __IS_DEV__: true,
