@@ -28,5 +28,3 @@ export const getArticlesPageType = (state: StateSchema) =>
 export const [useArticleItemById] = buildSelector(
     (state, id: string) => state.articlesPage?.entities[id],
 );
-
-// const data = useArticleItemById("1");
