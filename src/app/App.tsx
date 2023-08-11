@@ -5,12 +5,21 @@ import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { AppRouter } from './providers/router';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInited, userActions } from '@/entities/User';
+import {
+    getUserInited,
+    useJsonSettingByKey,
+    userActions,
+} from '@/entities/User';
 
 function App() {
     const { theme } = useTheme();
     const dispatch = useDispatch();
     const inited = useSelector(getUserInited);
+    const themeFromSettings = useJsonSettingByKey('theme');
+    const isFirstVisit = useJsonSettingByKey('isFirstVisit');
+
+    console.log('themeFromSettings: ', themeFromSettings);
+    console.log('isFirstVisit: ', isFirstVisit);
 
     useEffect(() => {
         dispatch(userActions.initAuthData());
