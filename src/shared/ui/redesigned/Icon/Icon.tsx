@@ -5,17 +5,16 @@ import cls from './Icon.module.scss';
 interface IconProps extends React.SVGProps<SVGSVGElement> {
     className?: string;
     Svg: React.VFC<React.SVGProps<SVGSVGElement>>;
-    inverted?: boolean;
 }
 
 export const Icon = memo((props: IconProps) => {
-    const { className, Svg, inverted, ...otherProps } = props;
+    const { className, Svg, width = 32, height = 32, ...otherProps } = props;
 
     return (
         <Svg
-            className={classNames(inverted ? cls.inverted : cls.Icon, {}, [
-                className,
-            ])}
+            width={width}
+            height={height}
+            className={classNames(cls.Icon, {}, [className])}
             {...otherProps}
         />
     );
