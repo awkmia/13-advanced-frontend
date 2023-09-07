@@ -22,6 +22,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
     const sidebarItemsList = useSelector(getSidebarItems);
 
     const onToggle = () => {
+        console.log(collapsed);
         setCollapsed((prev) => !prev);
     };
 
@@ -45,7 +46,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
                     data-testid="sidebar"
                     className={classNames(
                         cls.SidebarRedesigned,
-                        { [cls.collapsed]: collapsed },
+                        { [cls.collapsedRedesigned]: collapsed },
                         [className],
                     )}
                 >
