@@ -18,6 +18,7 @@ import cls from './ArticlesPage.module.scss';
 import { ArticlePageGreeting } from '@/features/articlePageGreeting';
 import { ToggleFeatures } from '@/shared/lib/features';
 import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
+import { ViewSelectorContainer } from '../ViewSelectorContainer/ViewSelectorContainer';
 
 interface ArticlesPageProps {
     className?: string;
@@ -46,7 +47,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
             feature="isAppRedesigned"
             on={
                 <StickyContentLayout
-                    left={<div>1111111</div>}
+                    left={<ViewSelectorContainer />}
                     right={<div>2222222</div>}
                     content={
                         <Page
