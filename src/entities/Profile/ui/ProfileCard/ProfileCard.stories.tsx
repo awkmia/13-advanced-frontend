@@ -13,7 +13,9 @@ export default {
     },
 } as ComponentMeta<typeof ProfileCard>;
 
-const Template: ComponentStory<typeof ProfileCard> = (args) => <ProfileCard {...args} />;
+const Template: ComponentStory<typeof ProfileCard> = (args) => (
+    <ProfileCard {...args} />
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -27,7 +29,6 @@ Primary.args = {
         currency: Currency.USD,
         avatar,
     },
-    readonly: true,
 };
 
 export const withError = Template.bind({});
