@@ -33,30 +33,16 @@
         margin-top: 16px;
     }
 
-    .blur {
-        position: relative;
-    }
-
     .textBlock {
         max-height: 200px;
         overflow-y: hidden;
-    }
-
-    .textBlock::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 15px;
-        background: linear-gradient(transparent, var(--card-bg));
     }
 }
 
 .SMALL {
     width: 230px;
-    cursor: pointer;
     transition: 0.2s;
+    cursor: pointer;
 
     .date {
         position: absolute;
