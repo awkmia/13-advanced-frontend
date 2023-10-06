@@ -1,10 +1,10 @@
 import React, { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { getUserInited, initAuthData } from '@/entities/User';
 import { AppRouter } from './providers/router';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInited, initAuthData } from '@/entities/User';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { PageLoader } from '@/widgets/PageLoader';
@@ -28,7 +28,7 @@ function App() {
         <ToggleFeatures
             feature="isAppRedesigned"
             off={
-                <div className={classNames('app', {}, [theme])}>
+                <div id="app" className={classNames('app', {}, [theme])}>
                     <Suspense fallback="">
                         <Navbar />
                         <div className="content-page">
@@ -39,13 +39,15 @@ function App() {
                 </div>
             }
             on={
-                <div className={classNames('app_redesigned', {}, [theme])}>
+                <div
+                    id="app"
+                    className={classNames('app_redesigned', {}, [theme])}
+                >
                     <Suspense fallback="">
                         <MainLayout
                             header={<Navbar />}
                             content={<AppRouter />}
                             sidebar={<Sidebar />}
-                            toolbar={<div>11111111111111</div>}
                         />
                     </Suspense>
                 </div>
