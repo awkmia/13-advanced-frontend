@@ -9,7 +9,7 @@ interface ThemeProviderProps {
 }
 
 const ThemeProvider = (props: ThemeProviderProps) => {
-    const { children, initialTheme } = props;
+    const { initialTheme, children } = props;
     const { theme: defaultTheme } = useJsonSettings();
     const [isThemeInited, setThemeInited] = useState(false);
 
@@ -23,6 +23,10 @@ const ThemeProvider = (props: ThemeProviderProps) => {
             setThemeInited(true);
         }
     }, [defaultTheme, isThemeInited]);
+
+    useEffect(() => {
+        document.body.className = theme;
+    }, [theme]);
 
     const defaultProps = useMemo(
         () => ({
