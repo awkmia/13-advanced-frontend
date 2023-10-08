@@ -21,7 +21,7 @@ import {
     getAddCommentFormError,
     getAddCommentFormText,
 } from '../../model/selectors/addCommentFormSelectors';
-import cls from './AddCommentForm.module.scss';
+import cls from './addCommentForm.module.scss';
 import { ToggleFeatures } from '@/shared/lib/features';
 import { Input } from '@/shared/ui/redesigned/Input';
 import { Button } from '@/shared/ui/redesigned/Button';

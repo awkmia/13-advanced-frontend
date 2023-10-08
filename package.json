@@ -15,7 +15,7 @@
     "analyze:prod": "npm run build:prod --env analyze=true",
     "analyze:dev": "npm run build:dev --env analyze=true",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
-    "lint:ts": "eslint \"**/*.{ts,tsx}\"",
+    "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "lint:scss": "npx stylelint \"**/*.scss\"",
     "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
